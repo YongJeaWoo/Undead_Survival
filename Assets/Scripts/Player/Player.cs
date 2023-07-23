@@ -9,7 +9,7 @@ public enum E_AniState
 
 public class Player : MonoBehaviour
 {
-    // 플레이어 입력 위치
+    // 플레이어 입력 방향
     private Vector2 inputVec;
 
     // 속도 관리
@@ -18,6 +18,12 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigid;
     private SpriteRenderer spRender;
     private AnimationController aniController;
+
+    public Vector2 InputVec
+    {
+        get => inputVec;
+        set => inputVec = value;
+    }
 
     private void Awake()
     {
