@@ -1,31 +1,46 @@
 using SingletonComponent.Component;
+using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public class PlayerPrefab
+{
+    public string key;
+    public Player player;
+}
 
 public class PlayerManager : SingletonComponent<PlayerManager>
 {
-    private Player player;
+    // 인스펙터에 할당 가능한 플레이어 리스트 목록
+    [SerializeField] private List<PlayerPrefab> playerPrefabs;
+    // 이름으로 생성할 플레이어
+    private Dictionary<string, Player> playerPrefabDic;
 
-    [SerializeField] private Player manPlayer;
-    [SerializeField] private Player womanPlayer;
+    private Player player;
 
     public Player GetPlayer() => player;
 
-    public void InitManPlayer()
+    public void InitPlayer(string key)
     {
-        player = Instantiate(manPlayer);
+        player = Instantiate(playerPrefabDic[key]);
         CameraManager.Instance.InitCamera();
     }
 
-    public void InitWomanPlayer()
+    private void SetPlayers()
     {
-        player = Instantiate(womanPlayer);
-        CameraManager.Instance.InitCamera();
+        playerPrefabDic = new Dictionary<string, Player>();
+
+        foreach (var playerPrefab in playerPrefabs)
+        {
+            playerPrefabDic.Add(playerPrefab.key, playerPrefab.player);
+        }
     }
 
     #region Singleton
 
     protected override void AwakeInstance()
     {
+        SetPlayers();
     }
 
     protected override bool InitInstance()

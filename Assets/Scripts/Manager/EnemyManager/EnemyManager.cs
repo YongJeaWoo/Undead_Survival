@@ -1,17 +1,14 @@
 using SingletonComponent.Component;
+using UnityEngine;
 
-public class GameManager : SingletonComponent<GameManager>
+public class EnemyManager : SingletonComponent<EnemyManager>
 {
-    private void Start()
-    {
-        PlayerManager.Instance.InitPlayer("Man Player");
-    }
+    private Enemy enemy;
 
     #region Singleton
 
     protected override void AwakeInstance()
     {
-        
     }
 
     protected override bool InitInstance()
@@ -25,4 +22,5 @@ public class GameManager : SingletonComponent<GameManager>
     }
 
     #endregion
+
 }

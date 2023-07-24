@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum E_AniState
+public enum E_PlayerState
 {
     Stand,
     Run,
@@ -19,17 +19,23 @@ public class Player : MonoBehaviour
     private SpriteRenderer spRender;
     private AnimationController aniController;
 
+    #region Property
+
     public Vector2 InputVec
     {
         get => inputVec;
         set => inputVec = value;
     }
+    public Rigidbody2D Rigid
+    {
+        get => rigid;
+    }
+
+    #endregion
 
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        spRender = GetComponent<SpriteRenderer>();
-        aniController = GetComponent<AnimationController>();
+        GetComponents();
     }
 
     private void Start()
@@ -52,6 +58,13 @@ public class Player : MonoBehaviour
         InputAnimation();
     }
 
+    private void GetComponents()
+    {
+        rigid = GetComponent<Rigidbody2D>();
+        spRender = GetComponent<SpriteRenderer>();
+        aniController = GetComponent<AnimationController>();
+    }
+
     #region Input Keys
 
     private void InputKeys()
@@ -72,7 +85,7 @@ public class Player : MonoBehaviour
     {
         if (inputVec.x != 0 || inputVec.y != 0)
         {
-            aniController.AnimationPlay(E_AniState.Run);
+            aniController.PlayerAnimation(E_PlayerState.Run);
 
             if (inputVec.x != 0)
             {
@@ -81,7 +94,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            aniController.AnimationPlay(E_AniState.Stand);
+            aniController.PlayerAnimation(E_PlayerState.Stand);
         }
     }
 
