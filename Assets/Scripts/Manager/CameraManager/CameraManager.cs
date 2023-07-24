@@ -29,6 +29,7 @@ public class CameraManager : SingletonComponent<CameraManager>
     public void InitCamera()
     {
         bCamera = mainCamera.AddComponent<CinemachineBrain>();
+        bCamera.m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
         GameObject newCam = new GameObject("VirtualCamera");
         newCam.transform.position = new Vector3(0, 0, -10);
         CinemachineVirtualCamera vCamera = newCam.AddComponent<CinemachineVirtualCamera>();

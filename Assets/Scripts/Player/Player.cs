@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     private Vector2 inputVec;
 
     // 속도 관리
-    private float moveSpeed = 3f;
+    private float moveSpeed = 5f;
 
     private Rigidbody2D rigid;
     private SpriteRenderer spRender;

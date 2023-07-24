@@ -22,15 +22,22 @@ public class Enemy : MonoBehaviour
         GetComponents();
     }
 
+    private void Start()
+    {
+        Target();
+    }
+
     private void GetComponents()
     {
-        targetRigid = PlayerManager.Instance.GetPlayer().Rigid;
         rigid = GetComponent<Rigidbody2D>();
         spRender = GetComponent<SpriteRenderer>();
         aniController = GetComponent<AnimationController>();
     }
 
-
+    private void Target()
+    {
+        targetRigid = PlayerManager.Instance.GetPlayer().Rigid;
+    }
 
     private void FixedUpdate()
     {
@@ -41,5 +48,10 @@ public class Enemy : MonoBehaviour
         rigid.MovePosition(rigid.position + nextVec);
         // 拱府利 面倒 绝局扁
         rigid.velocity = Vector2.zero;
+    }
+
+    private void LateUpdate()
+    {
+        spRender.flipX = targetRigid.position.x < rigid.position.x;
     }
 }

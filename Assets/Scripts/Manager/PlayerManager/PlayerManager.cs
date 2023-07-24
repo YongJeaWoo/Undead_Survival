@@ -20,9 +20,9 @@ public class PlayerManager : SingletonComponent<PlayerManager>
 
     public Player GetPlayer() => player;
 
-    public void InitPlayer(string key)
+    public void InitPlayer(string name)
     {
-        player = Instantiate(playerPrefabDic[key]);
+        player = Instantiate(playerPrefabDic[name]);
         CameraManager.Instance.InitCamera();
     }
 

@@ -5,6 +5,7 @@ public class GameManager : SingletonComponent<GameManager>
     private void Start()
     {
         PlayerManager.Instance.InitPlayer("Man Player");
+        //EnemyManager.Instance.InitEnemy("");
     }
 
     #region Singleton
