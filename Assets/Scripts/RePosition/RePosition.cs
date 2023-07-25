@@ -1,8 +1,15 @@
 using UnityEngine;
 
-public class MapPosition : MonoBehaviour
+public class RePosition : MonoBehaviour
 {
     private float mapSize = 40;
+
+    private Collider2D col;
+
+    private void Awake()
+    {
+        col = GetComponent<Collider2D>();
+    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -42,7 +49,13 @@ public class MapPosition : MonoBehaviour
                 break;
             case "Enemy":
                 {
+                    // 적이 맵 콜라이더에 닿으면 플레이어 방향으로 재배치
+                    if (col.enabled)
+                    {
+                        float random = Random.Range(-3f, 3f);
 
+                        transform.Translate(playerDir * (mapSize / 2) + new Vector3(random, random, 0));
+                    }
                 }
                 break;
         }
