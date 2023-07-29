@@ -26,6 +26,8 @@ public class CameraManager : SingletonComponent<CameraManager>
 
     #endregion
 
+    public Camera MainCamera() => mainCamera;
+
     public void InitCamera()
     {
         bCamera = mainCamera.AddComponent<CinemachineBrain>();

@@ -18,14 +18,31 @@ public class EnemyManager : SingletonComponent<EnemyManager>
 
     public void InitEnemy()
     {
-        for (int i = 0; i < enemyPrefabs.Count; i++)
-        {
-            var index = Random.Range(0, enemyPrefabs.Count);
+        // 플레이어의 위치
+        var playerPosition = PlayerManager.Instance.GetPlayer().transform.position;
 
-            var enemyName = enemyPrefabs[index].key;
+        // 플레이어의 위치를 중심으로 x와 y가 최대 20 정도의 랜덤한 위치
+        var spawnPosition = new Vector3(
+            playerPosition.x + Random.Range(-20f, 20f),
+            playerPosition.y + Random.Range(-20f, 20f),
+            playerPosition.z
+        );
 
-            ObjectPoolManager.Instance.Create(enemyName, transform);
-        }
+        // 카메라의 Camera 컴포넌트
+        var camera = CameraManager.Instance.MainCamera();
+
+        // 구한 위치가 카메라의 뷰포트 안에 있는지 확인
+        var viewportPoint = camera.WorldToViewportPoint(spawnPosition);
+        // 구한 위치가 카메라의 뷰포트 안에 있으면 적을 생성하지 않음
+        if (viewportPoint.x >= 0 && viewportPoint.x <= 1 && viewportPoint.y >= 0 && viewportPoint.y <= 1) return;
+
+        // 적 생성
+        var index = Random.Range(0, enemyPrefabs.Count);
+        var enemyName = enemyPrefabs[index].key;
+        var enemy = ObjectPoolManager.Instance.Create(enemyName, transform);
+
+        // 생성된 적의 위치 설정
+        enemy.transform.position = spawnPosition;
     }
 
     private void SetEnemies()

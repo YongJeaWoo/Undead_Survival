@@ -27,18 +27,6 @@ public class Enemy : MonoBehaviour
         Target();
     }
 
-    private void GetComponents()
-    {
-        rigid = GetComponent<Rigidbody2D>();
-        spRender = GetComponent<SpriteRenderer>();
-        aniController = GetComponent<AnimationController>();
-    }
-
-    private void Target()
-    {
-        targetRigid = PlayerManager.Instance.GetPlayer().Rigid;
-    }
-
     private void FixedUpdate()
     {
         // 상대 위치와 나의 위치 거리
@@ -53,5 +41,23 @@ public class Enemy : MonoBehaviour
     private void LateUpdate()
     {
         spRender.flipX = targetRigid.position.x < rigid.position.x;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Attacker")) return;
+
+    }
+
+    private void GetComponents()
+    {
+        rigid = GetComponent<Rigidbody2D>();
+        spRender = GetComponent<SpriteRenderer>();
+        aniController = GetComponent<AnimationController>();
+    }
+
+    private void Target()
+    {
+        targetRigid = PlayerManager.Instance.GetPlayer().Rigid;
     }
 }
