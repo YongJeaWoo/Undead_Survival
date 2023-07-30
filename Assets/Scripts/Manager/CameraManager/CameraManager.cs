@@ -36,6 +36,7 @@ public class CameraManager : SingletonComponent<CameraManager>
         newCam.transform.position = new Vector3(0, 0, -10);
         CinemachineVirtualCamera vCamera = newCam.AddComponent<CinemachineVirtualCamera>();
         vCamera.Follow = PlayerManager.Instance.GetPlayer().transform;
+        vCamera.m_Lens.OrthographicSize = 4f;
         vCamera.AddCinemachineComponent<CinemachineTransposer>();
     }
 }

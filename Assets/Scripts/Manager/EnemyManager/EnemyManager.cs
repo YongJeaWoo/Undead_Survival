@@ -16,6 +16,18 @@ public class EnemyManager : SingletonComponent<EnemyManager>
     // 이름으로 생성할 플레이어
     private Dictionary<string, Enemy> enemyPrefabDic;
 
+    private int level = 1;
+
+    private void SetEnemies()
+    {
+        enemyPrefabDic = new Dictionary<string, Enemy>();
+
+        foreach (var enemyPrefab in enemyPrefabs)
+        {
+            enemyPrefabDic.Add(enemyPrefab.key, enemyPrefab.enemy);
+        }
+    }
+
     public void InitEnemy()
     {
         // 플레이어의 위치
@@ -39,20 +51,12 @@ public class EnemyManager : SingletonComponent<EnemyManager>
         // 적 생성
         var index = Random.Range(0, enemyPrefabs.Count);
         var enemyName = enemyPrefabs[index].key;
-        var enemy = ObjectPoolManager.Instance.Create(enemyName, transform);
+        var enemy = ObjectPoolManager.Instance.CreateEnemy(enemyName, transform);
+
+        enemy.SetHealth(100 * level);
 
         // 생성된 적의 위치 설정
         enemy.transform.position = spawnPosition;
-    }
-
-    private void SetEnemies()
-    {
-        enemyPrefabDic = new Dictionary<string, Enemy>();
-
-        foreach (var enemyPrefab in enemyPrefabs)
-        {
-            enemyPrefabDic.Add(enemyPrefab.key, enemyPrefab.enemy);
-        }
     }
 
     #region Singleton

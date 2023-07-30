@@ -29,8 +29,35 @@ public class ObjectPoolManager : SingletonComponent<ObjectPoolManager>
         return objectPoolDics.TryGetValue(_poolName, out var result) ? result : null;
     }
 
-    // 오브젝트만 생성
-    public GameObject Create(string _poolName, Transform _parent = null)
+    // 적 오브젝트만 생성
+    public Enemy CreateEnemy(string _poolName, Transform _parent = null)
+    {
+        var pool = GetPool(_poolName);
+
+        if (pool == null)
+        {
+            Debug.LogError($"{_poolName}에 대한 오브젝트 풀이 존재하지 않음");
+            return null;
+        }
+
+        return pool.Create(_parent).GetComponent<Enemy>();
+    }
+
+    public GameObject Create(string _poolName)
+    {
+        var pool = GetPool(_poolName);
+
+        if (pool == null)
+        {
+            Debug.LogError($"{_poolName}에 대한 오브젝트 풀이 존재하지 않음");
+            return null;
+        }
+
+        return pool.Create();
+    }
+
+    // 포지션 조정 하여 생성
+    public GameObject Create(string _poolName, Transform _parent)
     {
         var pool = GetPool(_poolName);
 
@@ -41,20 +68,6 @@ public class ObjectPoolManager : SingletonComponent<ObjectPoolManager>
         }
 
         return pool.Create(_parent);
-    }
-
-    // 포지션조정 하여 생성
-    public GameObject Create(string _poolName, Transform _parent, Vector3 _position)
-    {
-        var pool = GetPool(_poolName);
-
-        if (pool == null)
-        {
-            Debug.LogError($"{_poolName}에 대한 오브젝트 풀이 존재하지 않음");
-            return null;
-        }
-
-        return pool.Create(_parent, _position);
     }
     
     public void Return(GameObject _obj, Transform _parent = null)

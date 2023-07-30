@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     private AnimationController aniController;
 
     private bool isLive;
+    private float health = 100f;
 
     private void Awake()
     {
@@ -47,6 +48,7 @@ public class Enemy : MonoBehaviour
     {
         if (!collision.CompareTag("Attacker")) return;
 
+        collision.SendMessage("OnAttacked", this);
     }
 
     private void GetComponents()
@@ -59,5 +61,20 @@ public class Enemy : MonoBehaviour
     private void Target()
     {
         targetRigid = PlayerManager.Instance.GetPlayer().Rigid;
+    }
+
+    public void SetHealth(int maxHealth)
+    {
+        health = maxHealth;
+    }
+
+    public void OnAttacked(Weapon weapon)
+    {
+        health -= weapon.Damage();
+
+        if (health <= 0)
+        {
+            ObjectPoolManager.Instance.Return(gameObject);
+        }
     }
 }

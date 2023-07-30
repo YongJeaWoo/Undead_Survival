@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8457841852625529498}
   - component: {fileID: 430550799795494472}
-  - component: {fileID: 5347582016531963276}
   - component: {fileID: 2285268109416469449}
+  - component: {fileID: 1674368148391088338}
   m_Layer: 0
   m_Name: Shovel
   m_TagString: Attacker
@@ -86,18 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5347582016531963276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5353323383066801991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eaf404883104474e80198922b6eb507, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &2285268109416469449
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -143,3 +131,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3888889, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1674368148391088338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5353323383066801991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a935e6ece0951344886ce3ac600d7caf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
