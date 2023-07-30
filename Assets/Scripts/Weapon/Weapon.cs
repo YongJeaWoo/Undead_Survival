@@ -3,8 +3,9 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     private float damage = 10f;
-    private float rotationSpeed = 2f;
+    private float rotationSpeed = 50f;
     private float centerDistance = 1.5f;
+    private float defaultAngle = 0f;
 
     private Transform playerTransform;
 
@@ -17,12 +18,16 @@ public class Weapon : MonoBehaviour
         playerTransform = PlayerManager.Instance.GetPlayer().transform;
     }
 
+    public void SetDefaultAngle(float _angle)
+    {
+        defaultAngle = _angle;
+    }
+
     private void Update()
     {
-        var angle = rotationSpeed * Time.time;
-        var offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * centerDistance;
+        var angle = defaultAngle + rotationSpeed * Time.time;
+        var offset = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * centerDistance;
         transform.position = playerTransform.position + offset;
-        transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
     }
 
     public void SetCenterDistance(float distance)

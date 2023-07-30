@@ -68,7 +68,7 @@ public class WeaponManager : SingletonComponent<WeaponManager>
         UpdateWeaponPosition();
     }
 
-    private void UpdateWeaponPosition()
+    public void UpdateWeaponPosition()
     {
         var angleSpacing = 360f / activeWeapons.Count;
         for (int i = 0; i < activeWeapons.Count; i++)
@@ -77,6 +77,7 @@ public class WeaponManager : SingletonComponent<WeaponManager>
             var angle = angleSpacing * i;
             var offset = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * weapon.CenterDistance();
             weapon.transform.position = PlayerManager.Instance.GetPlayer().transform.position + offset;
+            weapon.SetDefaultAngle(angle);
         }
     }
 
