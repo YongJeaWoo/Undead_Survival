@@ -17,7 +17,6 @@ public class WeaponManager : SingletonComponent<WeaponManager>
     private Dictionary<string, Weapon> weaponPrefabDic;
 
     private int maxWeapons = 5;
-    private float weaponSpacing;
 
     private List<Weapon> activeWeapons = new List<Weapon>();
 
