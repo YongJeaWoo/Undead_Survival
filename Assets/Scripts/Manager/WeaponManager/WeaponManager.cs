@@ -18,7 +18,10 @@ public class WeaponManager : SingletonComponent<WeaponManager>
 
     private int maxWeapons = 5;
     private float weaponSpacing;
+
     private List<Weapon> activeWeapons = new List<Weapon>();
+
+    public List<WeaponPrefab> Weapon() => weapons;
 
     private void SetWeapons()
     {
@@ -53,26 +56,30 @@ public class WeaponManager : SingletonComponent<WeaponManager>
         UpdateWeaponPosition();
     }
 
-    // 추후 동적 무기 간격 배치
-    public void SetWeaponSpacing(float spacing)
+    // 추후 동적 플레이어와 무기 간격 배치
+    public void SetWeaponSpacing(float distance)
     {
-        weaponSpacing = spacing;
+        for (int i = 0; i < activeWeapons.Count; i++)
+        {
+            var weapon = activeWeapons[i];
+            weapon.SetCenterDistance(distance);
+        }
+
         UpdateWeaponPosition();
     }
 
     private void UpdateWeaponPosition()
     {
-        weaponSpacing = 360f / activeWeapons.Count;
-
+        var angleSpacing = 360f / activeWeapons.Count;
         for (int i = 0; i < activeWeapons.Count; i++)
         {
             var weapon = activeWeapons[i];
-            var angle = weaponSpacing * i;
-            var offset = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad), 0f) * weapon.CenterDistance();
-
+            var angle = angleSpacing * i;
+            var offset = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * weapon.CenterDistance();
             weapon.transform.position = PlayerManager.Instance.GetPlayer().transform.position + offset;
         }
     }
+
     #region Singleton
 
     protected override void AwakeInstance()

@@ -22,5 +22,11 @@ public class Weapon : MonoBehaviour
         var angle = rotationSpeed * Time.time;
         var offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * centerDistance;
         transform.position = playerTransform.position + offset;
+        transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
+    }
+
+    public void SetCenterDistance(float distance)
+    {
+        centerDistance = distance;
     }
 }
