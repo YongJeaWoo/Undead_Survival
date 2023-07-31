@@ -67,7 +67,7 @@ public class WeaponManager : SingletonComponent<WeaponManager>
         UpdateWeaponPosition();
     }
 
-    public void UpdateWeaponPosition()
+    private void UpdateWeaponPosition()
     {
         var angleSpacing = 360f / activeWeapons.Count;
         for (int i = 0; i < activeWeapons.Count; i++)

@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
     private float rotationSpeed = 50f;
     private float centerDistance = 1.5f;
     private float defaultAngle = 0f;
+    private float accumulateAngle = 0f;
 
     private Transform playerTransform;
 
@@ -25,9 +26,11 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
-        var angle = defaultAngle + rotationSpeed * Time.time;
+        accumulateAngle += rotationSpeed * Time.deltaTime;
+        var angle = -(defaultAngle + rotationSpeed * Time.time);
         var offset = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * centerDistance;
         transform.position = playerTransform.position + offset;
+        transform.rotation = Quaternion.Euler(0, 0, angle + 270);
     }
 
     public void SetCenterDistance(float distance)
