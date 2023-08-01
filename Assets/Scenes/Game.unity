@@ -4861,6 +4861,7 @@ MonoBehaviour:
   - {fileID: 3964898025484029956, guid: f9064c9502c3b434893b3ff85f406343, type: 3}
   - {fileID: 8543813606400655415, guid: a9cf1ad060d7a7640be1da21f0ca0959, type: 3}
   - {fileID: 5353323383066801991, guid: b8b889c941e685a41bfea63ae6858a4e, type: 3}
+  - {fileID: 6297176332043826532, guid: e971cfe954e290148a1f56e931b3bf99, type: 3}
 --- !u!1 &706126712
 GameObject:
   m_ObjectHideFlags: 0
@@ -4893,6 +4894,8 @@ MonoBehaviour:
   weapons:
   - key: Shovel
     weapon: {fileID: 1674368148391088338, guid: b8b889c941e685a41bfea63ae6858a4e, type: 3}
+  - key: Bullet
+    weapon: {fileID: 2350024966838474884, guid: e971cfe954e290148a1f56e931b3bf99, type: 3}
 --- !u!4 &706126714
 Transform:
   m_ObjectHideFlags: 0

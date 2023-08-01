@@ -24,6 +24,9 @@ public class ObjectPool : MonoBehaviour
         deactiveObject.gameObject.SetActive(false);
     }
 
+    public Transform GetActiveObject() => activeObject;
+    public Transform GetDeactiveObject() => deactiveObject;
+
     public GameObject Create(Transform _parent = null)
     {
         _parent ??= activeObject;

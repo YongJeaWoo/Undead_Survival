@@ -18,7 +18,8 @@ public class WeaponManager : SingletonComponent<WeaponManager>
 
     private int maxWeapons = 5;
 
-    private List<Weapon> activeWeapons = new List<Weapon>();
+    // 회전 무기 리스트
+    private List<RotateWeapon> activeWeapons = new List<RotateWeapon>();
 
     public List<WeaponPrefab> Weapon() => weapons;
 
@@ -37,7 +38,8 @@ public class WeaponManager : SingletonComponent<WeaponManager>
         if (activeWeapons.Count >= maxWeapons) return;
         if (!weaponPrefabDic.ContainsKey(weaponName)) return;
 
-        var weapon = ObjectPoolManager.Instance.Create(weaponName, transform).GetComponent<Weapon>();
+        var pool = ObjectPoolManager.Instance.GetPool(weaponName);
+        var weapon = ObjectPoolManager.Instance.Create(weaponName, pool.GetActiveObject()).GetComponent<RotateWeapon>();
         activeWeapons.Add(weapon);
 
         UpdateWeaponPosition();

@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigid;
     private SpriteRenderer spRender;
     private AnimationController aniController;
+    private Scanner scanner;
 
     #region Property
 
@@ -29,6 +30,10 @@ public class Player : MonoBehaviour
     public Rigidbody2D Rigid
     {
         get => rigid;
+    }
+    public Scanner Scan
+    {
+        get => scanner;
     }
 
     #endregion
@@ -63,6 +68,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spRender = GetComponent<SpriteRenderer>();
         aniController = GetComponent<AnimationController>();
+        scanner = GetComponent<Scanner>();
     }
 
     #region Input Keys

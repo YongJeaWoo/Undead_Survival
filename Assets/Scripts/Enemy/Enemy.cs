@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour
         health = maxHealth;
     }
 
-    public void OnAttacked(Weapon weapon)
+    public void OnAttacked(RotateWeapon weapon)
     {
         health -= weapon.Damage();
 

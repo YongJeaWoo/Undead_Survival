@@ -51,7 +51,8 @@ public class EnemyManager : SingletonComponent<EnemyManager>
         // Àû »ý¼º
         var index = Random.Range(0, enemyPrefabs.Count);
         var enemyName = enemyPrefabs[index].key;
-        var enemy = ObjectPoolManager.Instance.CreateEnemy(enemyName, transform);
+        var pool = ObjectPoolManager.Instance.GetPool(enemyName);
+        var enemy = ObjectPoolManager.Instance.CreateEnemy(enemyName, pool.GetActiveObject());
 
         enemy.SetHealth(100 * level);
 
