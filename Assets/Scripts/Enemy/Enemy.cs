@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum E_EnemyState
@@ -14,6 +15,8 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rigid;
     private SpriteRenderer spRender;
     private AnimationController aniController;
+
+    private WeaponManager weaponManager;
 
     private bool isLive;
     private float health = 100f;
@@ -48,7 +51,7 @@ public class Enemy : MonoBehaviour
     {
         if (!collision.CompareTag("Attacker")) return;
 
-        collision.SendMessage("OnAttacked", this);
+        OnAttacked();
     }
 
     private void GetComponents()
@@ -61,6 +64,7 @@ public class Enemy : MonoBehaviour
     private void Target()
     {
         targetRigid = PlayerManager.Instance.GetPlayer().Rigid;
+        weaponManager = WeaponManager.Instance;
     }
 
     public void SetHealth(int maxHealth)
@@ -68,9 +72,18 @@ public class Enemy : MonoBehaviour
         health = maxHealth;
     }
 
-    public void OnAttacked(RotateWeapon weapon)
+    public void OnAttacked()
     {
-        health -= weapon.Damage();
+        List<WeaponPrefab> weapons = weaponManager.Weapon();
+
+        // 수정해야함
+        WeaponPrefab weapon = weapons[0];
+
+        float damage = weapon.damage;
+        float speed = weapon.speed;
+
+        health -= damage;
+        Debug.Log($"현재 체력 : {health} / 입은 데미지 {damage}");
 
         if (health <= 0)
         {

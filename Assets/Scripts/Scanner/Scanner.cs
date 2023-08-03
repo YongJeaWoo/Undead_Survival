@@ -3,11 +3,17 @@ using UnityEngine;
 
 public class Scanner : MonoBehaviour
 {
-    private float scanRange = 5f;
+    private string enemy = "Enemy";
+
+    private float fireDelay = 3f;
+    private float fireTimer = 0f;
+    private float scanRange = 8f;
     private LayerMask enemyLayer;
 
     private Transform playerTransform;
     private Transform target;
+
+    private WeaponManager weaponManager;
 
     #region Property
 
@@ -18,11 +24,20 @@ public class Scanner : MonoBehaviour
     private void OnEnable()
     {
         playerTransform = transform;
+        weaponManager = WeaponManager.Instance;
+        enemyLayer = 1 << LayerMask.NameToLayer(enemy);
     }
 
     private void Update()
     {
         ScanForEnemies();
+
+        fireTimer += Time.deltaTime;
+        if (fireTimer >= fireDelay)
+        {
+            Fire();
+            fireTimer = 0;
+        }
     }
 
     private void ScanForEnemies()
@@ -37,5 +52,20 @@ public class Scanner : MonoBehaviour
         {
             target = null;
         }
+    }
+
+    private void Fire()
+    {
+        if (target == null) return;
+
+        GameObject bulletObject = ObjectPoolManager.Instance.Create("Bullet");
+        Bullet bullet = bulletObject.GetComponent<Bullet>();
+
+        Vector3 direction = (target.position - playerTransform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        bullet.transform.position = playerTransform.position;
+        bullet.SetTarget(target.position);
     }
 }

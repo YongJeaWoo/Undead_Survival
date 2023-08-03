@@ -1,39 +1,42 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Bullet : Weapon
 {
-    private float timer = 0f;
-    private string bulletName;
-
-    private Scanner scanner;
-    private WeaponManager weaponManager;
+    private Vector3 targetPosition;
+    private float speed;
 
     public override void OnEnable()
     {
         base.OnEnable();
-        scanner = playerTransform.GetComponent<Scanner>();
-        weaponManager = WeaponManager.Instance;
+        WeaponPrefab bullet = weaponManager.GetWeapon("Bullet");
+        speed = bullet.speed;
     }
 
     private void Update()
     {
-        timer += Time.deltaTime;
-
-        if (timer > speed)
-        {
-            timer = 0f;
-            Fire();
-        }
+        MoveTowardsTarget();
     }
 
-    private void Fire()
+    private void OnBecameInvisible()
     {
-        // if (scanner.Target == Vector3.zero) return;
-
-        var direction = (scanner.Target - playerTransform.position).normalized;
-        var bulletPrefabName = weaponManager.Weapon().Find(w => w.key == bulletName).weapon.name;
-        var bullet = ObjectPoolManager.Instance.Create(bulletPrefabName);
-        bullet.transform.position = playerTransform.position + direction;
-        bullet.GetComponent<Rigidbody2D>().velocity = direction * speed;
+        Invoke(nameof(ReturnBullet), 2f);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy")) ReturnBullet();
+    }
+
+    private void ReturnBullet()
+    {
+        ObjectPoolManager.Instance.Return(gameObject);
+    }
+
+    private void MoveTowardsTarget()
+    {
+        transform.position += targetPosition * speed * Time.deltaTime;
+    }
+
+    public void SetTarget(Vector3 target) => targetPosition = (target - transform.position).normalized;
 }

@@ -4893,8 +4893,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
   - key: Shovel
+    damage: 20
+    speed: 90
     weapon: {fileID: 1674368148391088338, guid: b8b889c941e685a41bfea63ae6858a4e, type: 3}
   - key: Bullet
+    damage: 10
+    speed: 2
     weapon: {fileID: 2350024966838474884, guid: e971cfe954e290148a1f56e931b3bf99, type: 3}
 --- !u!4 &706126714
 Transform:

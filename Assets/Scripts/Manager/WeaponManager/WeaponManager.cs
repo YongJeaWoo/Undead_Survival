@@ -6,6 +6,8 @@ using UnityEngine;
 public class WeaponPrefab
 {
     public string key;
+    public float damage;
+    public float speed;
     public Weapon weapon;
 }
 
@@ -22,6 +24,7 @@ public class WeaponManager : SingletonComponent<WeaponManager>
     private List<RotateWeapon> activeWeapons = new List<RotateWeapon>();
 
     public List<WeaponPrefab> Weapon() => weapons;
+    public WeaponPrefab GetWeapon(string key) => weapons.Find(w => w.key == key);
 
     private void SetWeapons()
     {
@@ -39,8 +42,10 @@ public class WeaponManager : SingletonComponent<WeaponManager>
         if (!weaponPrefabDic.ContainsKey(weaponName)) return;
 
         var pool = ObjectPoolManager.Instance.GetPool(weaponName);
-        var weapon = ObjectPoolManager.Instance.Create(weaponName, pool.GetActiveObject()).GetComponent<RotateWeapon>();
-        activeWeapons.Add(weapon);
+        var transform = pool.GetActiveObject();
+        var weapon = ObjectPoolManager.Instance.Create(weaponName, transform);
+        var component = weapon.GetComponent<RotateWeapon>();
+        activeWeapons.Add(component);
 
         UpdateWeaponPosition();
     }
