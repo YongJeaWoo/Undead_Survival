@@ -20,8 +20,8 @@ public class RotateWeapon : Weapon
     private void Rotate()
     {
         WeaponPrefab rotate = weaponManager.GetWeapon("Shovel");
-        accumulateAngle += rotate.speed * Time.deltaTime;
-        var angle = -(defaultAngle + rotate.speed * Time.time);
+        accumulateAngle += speed * Time.deltaTime;
+        var angle = -(defaultAngle + speed * Time.time);
         var facingAngle = angle + 270;
         var offset = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * centerDistance;
         transform.position = playerTransform.position + offset;

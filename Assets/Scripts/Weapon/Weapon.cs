@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public float damage;
+    public float speed;
     public float centerDistance = 1.5f;
 
     protected Transform playerTransform;

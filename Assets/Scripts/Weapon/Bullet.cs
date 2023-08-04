@@ -4,13 +4,11 @@ using UnityEngine;
 public class Bullet : Weapon
 {
     private Vector3 targetPosition;
-    private float speed;
 
     public override void OnEnable()
     {
         base.OnEnable();
         WeaponPrefab bullet = weaponManager.GetWeapon("Bullet");
-        speed = bullet.speed;
     }
 
     private void Update()

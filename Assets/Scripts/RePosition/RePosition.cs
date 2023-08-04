@@ -54,7 +54,7 @@ public class RePosition : MonoBehaviour
                     {
                         float random = Random.Range(-3f, 3f);
 
-                        transform.Translate(playerDir * (mapSize * 0.8f) + new Vector3(random, random, 0));
+                        transform.Translate(playerDir * (mapSize * 1.2f) + new Vector3(random, random, 0));
                     }
                 }
                 break;

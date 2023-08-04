@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 4762361103780766229}
   - component: {fileID: 4525269032757918606}
   - component: {fileID: 5387367582980339950}
+  - component: {fileID: 5137900958395295910}
   m_Layer: 6
   m_Name: Powerful Skull
   m_TagString: Enemy
@@ -279,5 +280,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a20df77b236073041b2056f7bd0a7a9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5137900958395295910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5836775546097164412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689d7c4c071504745b65ec681b6b4c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

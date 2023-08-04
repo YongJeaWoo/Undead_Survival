@@ -6,8 +6,6 @@ using UnityEngine;
 public class WeaponPrefab
 {
     public string key;
-    public float damage;
-    public float speed;
     public Weapon weapon;
 }
 

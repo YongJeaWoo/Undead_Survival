@@ -5,7 +5,7 @@ public class Scanner : MonoBehaviour
 {
     private string enemy = "Enemy";
 
-    private float fireDelay = 3f;
+    private float fireDelay = 1.5f;
     private float fireTimer = 0f;
     private float scanRange = 8f;
     private LayerMask enemyLayer;
