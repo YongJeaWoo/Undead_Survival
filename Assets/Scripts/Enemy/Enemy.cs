@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     private float health = 100f;
 
     // ³Ë¹é
-    private float knockbackDuration = 0.5f;
+    private float knockbackDuration = 0.05f;
     private float knockbackTimer = 0f;
 
     private float knockbackDistance = 1.5f;
@@ -140,6 +140,8 @@ public class Enemy : MonoBehaviour
         else
         {
             Dead();
+            GameManager.Instance.AddKill();
+            GameManager.Instance.AddExperience(30);
         }
 
 
