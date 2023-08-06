@@ -13,6 +13,12 @@ public class Hand : MonoBehaviour
     private Quaternion leftRot = Quaternion.Euler(0, 0, -35);
     private Quaternion leftRotReverse = Quaternion.Euler(0, 0, -135);
 
+    public SpriteRenderer Spriter
+    {
+        get => spriteRenderer;
+        set => spriteRenderer = value;
+    }
+
     private void Awake()
     {
         InitAwake();

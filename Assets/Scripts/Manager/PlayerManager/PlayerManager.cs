@@ -1,5 +1,6 @@
 using SingletonComponent.Component;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
@@ -14,6 +15,8 @@ public class PlayerManager : SingletonComponent<PlayerManager>
     private int health;
     private int maxHealth = 100;
 
+    private ItemData data;
+
     // 인스펙터에 할당 가능한 플레이어 리스트 목록
     [SerializeField] private List<PlayerPrefab> playerPrefabs;
     // 이름으로 생성할 플레이어
@@ -25,6 +28,7 @@ public class PlayerManager : SingletonComponent<PlayerManager>
 
     public int GetCurrentHealth() => health;
     public int GetMaxHealth() => maxHealth;
+    public ItemData GetData() => data;
 
     public void InitPlayer(string name)
     {

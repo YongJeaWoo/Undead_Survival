@@ -17,6 +17,9 @@ MonoBehaviour:
   itemName: "\uCD1D\uC54C"
   itemIcon: {fileID: -205726582, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   itemObject: {fileID: 6297176332043826532, guid: e971cfe954e290148a1f56e931b3bf99, type: 3}
+  hand: {fileID: -353751291, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
+  baseDamage: 0
+  baseCount: 0
   levelDamage:
   - 1.5
   - 2.5

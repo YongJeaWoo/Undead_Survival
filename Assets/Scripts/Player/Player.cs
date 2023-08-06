@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     private AnimationController aniController;
     private Scanner scanner;
 
+    private Hand[] hands;
+
     #region Property
 
     public Vector2 InputVec
@@ -35,17 +37,17 @@ public class Player : MonoBehaviour
     {
         get => scanner;
     }
+    public Hand[] Hands
+    {
+        get => hands;
+        set => hands = value;
+    }
 
     #endregion
 
     private void Awake()
     {
         GetComponents();
-    }
-
-    private void Start()
-    {
-        
     }
 
     private void Update()
@@ -69,6 +71,7 @@ public class Player : MonoBehaviour
         spRender = GetComponent<SpriteRenderer>();
         aniController = GetComponent<AnimationController>();
         scanner = GetComponent<Scanner>();
+        hands = GetComponentsInChildren<Hand>(true);
     }
 
     #region Input Keys

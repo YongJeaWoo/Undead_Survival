@@ -21,6 +21,9 @@ public class ItemData : ScriptableObject
     public Sprite itemIcon;
     public GameObject itemObject;
 
+    [Header("@ Weapon Hand")]
+    public Sprite hand;
+
     [Header("@ Level Weapon")]
     public float baseDamage;
     public int baseCount;
