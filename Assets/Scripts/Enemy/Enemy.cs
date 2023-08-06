@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
         GetComponents();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         Target();
     }
@@ -80,12 +80,12 @@ public class Enemy : MonoBehaviour
 
     private void Target()
     {
-        targetRigid = PlayerManager.Instance.GetPlayer().Rigid;
-        weaponManager = WeaponManager.Instance;
-
         col.enabled = true;
         rigid.simulated = true;
         spriteRenderer.sortingOrder = 3;
+
+        targetRigid = PlayerManager.Instance.GetPlayer().Rigid;
+        weaponManager = WeaponManager.Instance;
     }
 
     private void Rotate()
@@ -143,8 +143,5 @@ public class Enemy : MonoBehaviour
             GameManager.Instance.AddKill();
             GameManager.Instance.AddExperience(30);
         }
-
-
-        Debug.Log($"현재 체력 : {health} / 입은 데미지 {damage}");
     }
 }

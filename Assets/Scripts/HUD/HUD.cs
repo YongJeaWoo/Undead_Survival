@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -60,12 +61,22 @@ public class HUD : MonoBehaviour
                 break;
             case E_InfoType.Time:
                 {
+                    float currentTime = GameManager.Instance.GetCurrentTime();
+                    float maxTime = GameManager.Instance.GetMaxTime();
 
+                    float remainTime = maxTime - currentTime;
+
+                    int min = Mathf.FloorToInt(remainTime / 60);
+                    int seconds = Mathf.FloorToInt(remainTime % 60);
+
+                    text.text = $"{min:D2} : {seconds:D2}";
                 }
                 break;
             case E_InfoType.Health:
                 {
-
+                    float curHp = PlayerManager.Instance.GetCurrentHealth();
+                    float maxHp = PlayerManager.Instance.GetMaxHealth();
+                    slider.value = curHp / maxHp;
                 }
                 break;
         }

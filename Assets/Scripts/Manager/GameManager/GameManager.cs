@@ -1,4 +1,5 @@
 using SingletonComponent.Component;
+using UnityEngine;
 
 public class GameManager : SingletonComponent<GameManager>
 {
@@ -11,13 +12,15 @@ public class GameManager : SingletonComponent<GameManager>
 
     private void Update()
     {
-        
+        currentTime += Time.deltaTime;
     }
 
     public int GetExp() => exp;
     public int GetMaxExp() => maxExp;
     public int GetLevel() => level;
     public int GetKill() => monsterKilled;
+    public float GetCurrentTime() => currentTime;
+    public float GetMaxTime() => maxGameTime;
 
     public void AddKill()
     {
@@ -52,7 +55,11 @@ public class GameManager : SingletonComponent<GameManager>
 
     private void GameOver()
     {
+        if (currentTime < 0)
+        {
+            currentTime = 0;
 
+        }
     }
 
     #region Singleton
