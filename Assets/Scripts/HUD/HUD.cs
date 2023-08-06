@@ -56,7 +56,7 @@ public class HUD : MonoBehaviour
             case E_InfoType.Kill:
                 {
                     int kill = GameManager.Instance.GetKill();
-                    text.text = $"{kill:F0}";
+                    text.text = $"{kill:D4}";
                 }
                 break;
             case E_InfoType.Time:
