@@ -18,6 +18,7 @@ public class Scanner : MonoBehaviour
     #region Property
 
     public Vector3 Target => target != null ? target.position : Vector3.zero;
+    public bool IsWeaponActive { get; set; }
 
     #endregion
 
@@ -35,7 +36,8 @@ public class Scanner : MonoBehaviour
         fireTimer += Time.deltaTime;
         if (fireTimer >= fireDelay)
         {
-            Fire();
+            if (IsWeaponActive) Fire();
+
             fireTimer = 0;
         }
     }

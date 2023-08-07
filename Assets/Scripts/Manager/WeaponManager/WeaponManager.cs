@@ -7,6 +7,7 @@ public class WeaponPrefab
 {
     public string key;
     public Weapon weapon;
+    public ItemData itemData;
 }
 
 public class WeaponManager : SingletonComponent<WeaponManager>
@@ -14,30 +15,38 @@ public class WeaponManager : SingletonComponent<WeaponManager>
     // 할당하여 생성할 무기 프리팹
     [SerializeField] private List<WeaponPrefab> weapons;
     // 이름으로 생성할 무기
-    private Dictionary<string, Weapon> weaponPrefabDic;
+    private Dictionary<string, ItemData> weaponDic;
 
     private int maxWeapons = 5;
 
     // 회전 무기 리스트
     private List<RotateWeapon> activeWeapons = new List<RotateWeapon>();
 
-    public List<WeaponPrefab> Weapon() => weapons;
-    public WeaponPrefab GetWeapon(string key) => weapons.Find(w => w.key == key);
-
     private void SetWeapons()
     {
-        weaponPrefabDic = new Dictionary<string, Weapon>();
+        weaponDic = new Dictionary<string, ItemData>();
 
         foreach (var weaponPrefab in weapons)
         {
-            weaponPrefabDic.Add(weaponPrefab.key, weaponPrefab.weapon);
+            weaponDic.Add(weaponPrefab.itemData.itemName, weaponPrefab.itemData);
         }
     }
 
+    public Dictionary<string, ItemData> GetWeapon() => weaponDic;
+
     public void AddWeapon(string weaponName)
     {
+        if (!weaponDic.ContainsKey(weaponName)) return;
+
+        var pool = ObjectPoolManager.Instance.GetPool(weaponName);
+        var transform = pool.GetActiveObject();
+        ObjectPoolManager.Instance.Create(weaponName, transform);
+    }
+
+    public void AddRotateWeapon(string weaponName)
+    {
         if (activeWeapons.Count >= maxWeapons) return;
-        if (!weaponPrefabDic.ContainsKey(weaponName)) return;
+        if (!weaponDic.ContainsKey(weaponName)) return;
 
         var pool = ObjectPoolManager.Instance.GetPool(weaponName);
         var transform = pool.GetActiveObject();
@@ -48,7 +57,7 @@ public class WeaponManager : SingletonComponent<WeaponManager>
         UpdateWeaponPosition();
     }
 
-    public void RemoveWeapon()
+    public void RemoveRotateWeapon()
     {
         if (activeWeapons.Count == 0) return;
 

@@ -47,11 +47,17 @@ public class LevelManager : SingletonComponent<LevelManager>
             case E_GameState.Ready:
                 {
                     PlayerManager.Instance.InitPlayer("Man Player");
+
+                    // 생성된 플레이어의 Hand 클래스의 인스턴스에 대해 InitAwake 메서드 호출
+                    foreach (var hand in PlayerManager.Instance.GetPlayer().Hands)
+                    {
+                        hand.InitAwake();
+                    }
                 }
                 break;
             case E_GameState.Start:
                 {
-                    
+
                 }
                 break;
             case E_GameState.Pause:

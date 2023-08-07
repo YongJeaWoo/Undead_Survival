@@ -11,9 +11,9 @@ public class EnemyPrefab
 
 public class EnemyManager : SingletonComponent<EnemyManager>
 {
-    // 인스펙터에 할당 가능한 플레이어 적 리스트 목록
+    // 인스펙터에 할당 가능한 적 리스트 목록
     [SerializeField] private List<EnemyPrefab> enemyPrefabs;
-    // 이름으로 생성할 플레이어
+    // 이름으로 생성할 적
     private Dictionary<string, Enemy> enemyPrefabDic;
 
     private int level = 1;

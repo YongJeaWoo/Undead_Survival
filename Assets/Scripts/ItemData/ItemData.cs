@@ -20,7 +20,7 @@ public class ItemData : ScriptableObject
     public string itemName;
     public Sprite itemIcon;
     public GameObject itemObject;
-
+    
     [Header("@ Weapon Hand")]
     public Sprite hand;
 

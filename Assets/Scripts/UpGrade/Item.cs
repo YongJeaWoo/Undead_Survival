@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +28,7 @@ public class Item : MonoBehaviour
 
     private void LateUpdate()
     {
-        text.text = $"Lv.{level + 1}";
+        text.text = $"Lv.{level}";
     }
 
     public void OnClick()
@@ -36,12 +37,30 @@ public class Item : MonoBehaviour
         {
             case ItemData.E_ItemType.Melee:
                 {
+                    var hand = PlayerManager.Instance.GetPlayer().Hands;
+                    var leftHand = hand.FirstOrDefault(hand => hand.IsLeft);
 
+                    if (leftHand != null)
+                    {
+                        leftHand.Spriter.sprite = data.hand;
+                        leftHand.gameObject.SetActive(true);
+                    }
                 }
                 break;
             case ItemData.E_ItemType.Range:
                 {
+                    var Player = PlayerManager.Instance.GetPlayer();
+                    var hand = PlayerManager.Instance.GetPlayer().Hands;
 
+                    var rightHand = hand.FirstOrDefault(hand => !hand.IsLeft);
+
+                    if (rightHand != null)
+                    {
+                        rightHand.Spriter.sprite = data.hand;
+                        rightHand.gameObject.SetActive(true);
+                    }
+
+                    Player.Scan.IsWeaponActive = true;
                 }
                 break;
             case ItemData.E_ItemType.Glove:

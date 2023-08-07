@@ -19,10 +19,9 @@ public class Hand : MonoBehaviour
         set => spriteRenderer = value;
     }
 
-    private void Awake()
+    public bool IsLeft
     {
-        InitAwake();
-
+        get => isLeft;
     }
 
     private void LateUpdate()
@@ -48,9 +47,9 @@ public class Hand : MonoBehaviour
         }
     }
 
-    private void InitAwake()
+    public void InitAwake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        player = GetComponentsInParent<SpriteRenderer>()[1];
+        player = GetComponentsInParent<SpriteRenderer>()[0];
     }
 }

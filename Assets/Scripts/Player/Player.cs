@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     private AnimationController aniController;
     private Scanner scanner;
 
-    private Hand[] hands;
+    [SerializeField] private Hand[] hands;
 
     #region Property
 

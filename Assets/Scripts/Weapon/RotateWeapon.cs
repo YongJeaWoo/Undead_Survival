@@ -19,7 +19,6 @@ public class RotateWeapon : Weapon
 
     private void Rotate()
     {
-        WeaponPrefab rotate = weaponManager.GetWeapon("Shovel");
         accumulateAngle += speed * Time.deltaTime;
         var angle = -(defaultAngle + speed * Time.time);
         var facingAngle = angle + 270;

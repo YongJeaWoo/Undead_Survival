@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 public class Bullet : Weapon
@@ -8,7 +7,6 @@ public class Bullet : Weapon
     public override void OnEnable()
     {
         base.OnEnable();
-        WeaponPrefab bullet = weaponManager.GetWeapon("Bullet");
     }
 
     private void Update()
