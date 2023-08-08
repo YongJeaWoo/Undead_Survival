@@ -34,5 +34,11 @@ public class Bullet : Weapon
         transform.position += targetPosition * speed * Time.deltaTime;
     }
 
+    public override void Init()
+    {
+        base.Init();
+        centerDistance = 1;
+    }
+
     public void SetTarget(Vector3 target) => targetPosition = (target - transform.position).normalized;
 }

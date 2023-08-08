@@ -62,6 +62,7 @@ public class Scanner : MonoBehaviour
 
         GameObject bulletObject = ObjectPoolManager.Instance.Create("Bullet");
         Bullet bullet = bulletObject.GetComponent<Bullet>();
+        bullet.Init();
 
         Vector3 direction = (target.position - playerTransform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;

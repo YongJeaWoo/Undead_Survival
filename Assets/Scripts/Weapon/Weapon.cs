@@ -6,6 +6,8 @@ public class Weapon : MonoBehaviour
     public float speed;
     public float centerDistance = 1.5f;
 
+    public ItemData data;
+
     protected Transform playerTransform;
     protected WeaponManager weaponManager;
 
@@ -13,5 +15,17 @@ public class Weapon : MonoBehaviour
     {
         playerTransform = PlayerManager.Instance.GetPlayer().transform;
         weaponManager = WeaponManager.Instance;
+    }
+
+    public virtual void Init()
+    {
+        damage = data.baseDamage;
+        speed = data.baseSpeed;
+    }
+
+    public void LevelUp(int level)
+    {
+        damage = data.levelDamage[level];
+        speed = data.levelSpeed[level];
     }
 }

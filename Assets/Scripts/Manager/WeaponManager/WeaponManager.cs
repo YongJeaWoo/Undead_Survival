@@ -20,7 +20,7 @@ public class WeaponManager : SingletonComponent<WeaponManager>
     private int maxWeapons = 5;
 
     // 회전 무기 리스트
-    private List<RotateWeapon> activeWeapons = new List<RotateWeapon>();
+    private List<Shovel> activeWeapons = new List<Shovel>();
 
     private void SetWeapons()
     {
@@ -28,7 +28,7 @@ public class WeaponManager : SingletonComponent<WeaponManager>
 
         foreach (var weaponPrefab in weapons)
         {
-            weaponDic.Add(weaponPrefab.itemData.itemName, weaponPrefab.itemData);
+            weaponDic.Add(weaponPrefab.itemData.keyName, weaponPrefab.itemData);
         }
     }
 
@@ -51,8 +51,9 @@ public class WeaponManager : SingletonComponent<WeaponManager>
         var pool = ObjectPoolManager.Instance.GetPool(weaponName);
         var transform = pool.GetActiveObject();
         var weapon = ObjectPoolManager.Instance.Create(weaponName, transform);
-        var component = weapon.GetComponent<RotateWeapon>();
-        activeWeapons.Add(component);
+        var shovel = weapon.GetComponent<Shovel>();
+        shovel.Init();
+        activeWeapons.Add(shovel);
 
         UpdateWeaponPosition();
     }

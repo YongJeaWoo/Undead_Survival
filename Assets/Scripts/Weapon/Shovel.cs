@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RotateWeapon : Weapon
+public class Shovel : Weapon
 {
     private float defaultAngle = 0f;
     private float accumulateAngle = 0f;
@@ -25,6 +25,12 @@ public class RotateWeapon : Weapon
         var offset = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * centerDistance;
         transform.position = playerTransform.position + offset;
         transform.rotation = Quaternion.Euler(0, 0, facingAngle);
+    }
+
+    public override void Init()
+    {
+        base.Init();
+        centerDistance = 1.5f;
     }
 
     public void SetDefaultAngle(float _angle)

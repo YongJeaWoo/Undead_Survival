@@ -17,7 +17,9 @@ MonoBehaviour:
   itemName: "\uB048\uB048\uC774 \uC7A5\uAC11"
   itemIcon: {fileID: -201829820, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   itemObject: {fileID: 0}
+  hand: {fileID: 0}
   baseDamage: 0
+  baseSpeed: 0
   baseCount: 0
   levelDamage:
   - 0.2
@@ -25,4 +27,5 @@ MonoBehaviour:
   - 0.6
   - 0.8
   - 1
+  levelSpeed: []
   levelCount: 0000000000000000000000000000000000000000

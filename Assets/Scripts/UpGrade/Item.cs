@@ -33,6 +33,31 @@ public class Item : MonoBehaviour
 
     public void OnClick()
     {
+        if (level == 0)
+        {
+            var infoObj = ObjectPoolManager.Instance.infoObj;
+            var getWeaponManager = WeaponManager.Instance.GetWeapon();
+            var getObject = getWeaponManager[data.keyName].itemObject;
+            var newObject = new GameObject($"{getObject.name} Info");
+            newObject.transform.SetParent(infoObj.transform);
+
+            var weaponType = getObject.GetComponent<Weapon>().GetType();
+            weapon = (Weapon)newObject.AddComponent(weaponType);
+
+            if (weapon != null)
+            {
+                weapon.data = data;
+                weapon.Init();
+            }
+        }
+        else
+        {
+            if (weapon != null)
+            {
+                weapon.LevelUp(level);
+            }
+        }
+
         switch (data.itemType)
         {
             case ItemData.E_ItemType.Melee:
@@ -45,6 +70,8 @@ public class Item : MonoBehaviour
                         leftHand.Spriter.sprite = data.hand;
                         leftHand.gameObject.SetActive(true);
                     }
+
+                    WeaponManager.Instance.AddRotateWeapon("Shovel");
                 }
                 break;
             case ItemData.E_ItemType.Range:

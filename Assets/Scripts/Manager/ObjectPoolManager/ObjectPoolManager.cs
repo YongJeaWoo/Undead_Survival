@@ -9,6 +9,8 @@ public class ObjectPoolManager : SingletonComponent<ObjectPoolManager>
 
     private Dictionary<string, ObjectPool> objectPoolDics = new Dictionary<string, ObjectPool>();
 
+    public GameObject infoObj { get; private set; }
+
     // 오브젝트 풀을 찾아서 사용
     private void Initialized()
     {
@@ -17,6 +19,12 @@ public class ObjectPoolManager : SingletonComponent<ObjectPoolManager>
 
     private void CreateObjectPool(GameObject _obj)
     {
+        if (infoObj == null)
+        {
+            infoObj = new GameObject("Collects Info");
+            infoObj.transform.SetParent(transform);
+        }
+
         var obj = new GameObject($"{_obj.name}_Pool");
         obj.transform.SetParent(transform);
         var pool = obj.AddComponent<ObjectPool>();
