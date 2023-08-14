@@ -2,11 +2,6 @@ using UnityEngine;
 
 public class Shovel : Weapon
 {
-    private float defaultAngle = 0f;
-    private float accumulateAngle = 0f;
-
-    public float CenterDistance() => centerDistance;
-
     public override void OnEnable()
     {
         base.OnEnable();
@@ -31,15 +26,5 @@ public class Shovel : Weapon
     {
         base.Init();
         centerDistance = 1.5f;
-    }
-
-    public void SetDefaultAngle(float _angle)
-    {
-        defaultAngle = _angle;
-    }
-
-    public void SetCenterDistance(float distance)
-    {
-        centerDistance = distance;
     }
 }

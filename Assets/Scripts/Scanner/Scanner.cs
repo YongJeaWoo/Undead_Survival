@@ -15,6 +15,13 @@ public class Scanner : MonoBehaviour
 
     private WeaponManager weaponManager;
 
+    private GameObject bulletObj;
+
+    public GameObject BulletObj
+    {
+        get => bulletObj;
+    }
+
     #region Property
 
     public Vector3 Target => target != null ? target.position : Vector3.zero;
@@ -34,6 +41,7 @@ public class Scanner : MonoBehaviour
         ScanForEnemies();
 
         fireTimer += Time.deltaTime;
+
         if (fireTimer >= fireDelay)
         {
             if (IsWeaponActive) Fire();
@@ -60,9 +68,8 @@ public class Scanner : MonoBehaviour
     {
         if (target == null) return;
 
-        GameObject bulletObject = ObjectPoolManager.Instance.Create("Bullet");
-        Bullet bullet = bulletObject.GetComponent<Bullet>();
-        bullet.Init();
+        bulletObj = ObjectPoolManager.Instance.Create("Bullet");
+        Bullet bullet = bulletObj.GetComponent<Bullet>();
 
         Vector3 direction = (target.position - playerTransform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;

@@ -31,6 +31,8 @@ public class Hand : MonoBehaviour
 
     private void CheckReverse()
     {
+        var checkPlayer = PlayerManager.Instance.GetPlayer();
+        var targetAppoint = checkPlayer.Scan.Target;
         bool isReverse = player.flipX;
 
         if (isLeft)
@@ -39,6 +41,20 @@ public class Hand : MonoBehaviour
             spriteRenderer.flipY = isReverse;
             spriteRenderer.sortingOrder = isReverse ? 4 : 10;
         }
+        // 손을 가장 가까운 적에게 타겟팅
+        //else if (targetAppoint != null)
+        //{
+        //    Vector3 targetPos = checkPlayer.Scan.Target;
+        //    Vector3 dir = targetPos - transform.position;
+        //    transform.localRotation = Quaternion.FromToRotation(Vector3.right, dir);
+
+        //    bool isRot1 = transform.localRotation.eulerAngles.z > 90 &&
+        //        transform.localRotation.eulerAngles.z < 270;
+        //    bool isRot2 = transform.localRotation.eulerAngles.z < -90 &&
+        //        transform.localRotation.eulerAngles.z > -270;
+        //    Spriter.flipY = isRot1 || isRot2;
+        //    spriteRenderer.sortingOrder = 6;
+        //}
         else
         {
             transform.localPosition = isReverse ? rightPosReverse : rightPos;

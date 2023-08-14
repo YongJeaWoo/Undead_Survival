@@ -161,7 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c757b4351484f8488bca3fd95d7d631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  speed: 0
-  centerDistance: 0
+  damage: 10
+  speed: 7
+  defaultAngle: 0
+  accumulateAngle: 0
+  centerDistance: 1
   data: {fileID: 11400000, guid: 68a93b64d37db4e498a264558705ad7b, type: 2}

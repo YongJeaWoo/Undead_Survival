@@ -20,7 +20,7 @@ public class WeaponManager : SingletonComponent<WeaponManager>
     private int maxWeapons = 5;
 
     // 회전 무기 리스트
-    private List<Shovel> activeWeapons = new List<Shovel>();
+    private List<Weapon> activeWeapons = new List<Weapon>();
 
     private void SetWeapons()
     {

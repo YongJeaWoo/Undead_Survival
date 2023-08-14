@@ -5,12 +5,16 @@ using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
+    public static Item Instance;
+
     public Weapon weapon;
     public ItemData data;
     public int level;
 
     private Image icon;
     private TextMeshProUGUI text;
+
+    private Weapon bulletComponent;
 
     private void Awake()
     {
@@ -19,6 +23,8 @@ public class Item : MonoBehaviour
 
     private void InitItem()
     {
+        Instance = this;
+
         icon = GetComponentsInChildren<Image>()[1];
         icon.sprite = data.itemIcon;
 
@@ -35,19 +41,19 @@ public class Item : MonoBehaviour
     {
         if (level == 0)
         {
-            var infoObj = ObjectPoolManager.Instance.infoObj;
             var getWeaponManager = WeaponManager.Instance.GetWeapon();
-            var getObject = getWeaponManager[data.keyName].itemObject;
-            var newObject = new GameObject($"{getObject.name} Info");
-            newObject.transform.SetParent(infoObj.transform);
+            var getObject = getWeaponManager[data.keyName];
+            var weaponObject = data.itemObject;
 
-            var weaponType = getObject.GetComponent<Weapon>().GetType();
-            weapon = (Weapon)newObject.AddComponent(weaponType);
-
-            if (weapon != null)
+            if (weaponObject != null)
             {
-                weapon.data = data;
-                weapon.Init();
+                weapon = weaponObject.GetComponent<Weapon>();
+
+                if (weapon != null)
+                {
+                    weapon.data = data;
+                    weapon.Init();
+                }
             }
         }
         else
@@ -58,60 +64,69 @@ public class Item : MonoBehaviour
             }
         }
 
+        level++;
+
+        var player = PlayerManager.Instance.GetPlayer();
+        //var bulletObject = player.Scan.BulletObj;
+
+        //if (bulletObject != null)
+        //{
+        //    var getBullet = bulletObject.GetComponent<Bullet>();
+
+        //    getBullet.damage = data.baseDamage + data.levelDamage[level];
+        //    getBullet.speed = data.baseSpeed + data.levelSpeed[level];
+        //}
+
         switch (data.itemType)
         {
             case ItemData.E_ItemType.Melee:
-                {
-                    var hand = PlayerManager.Instance.GetPlayer().Hands;
-                    var leftHand = hand.FirstOrDefault(hand => hand.IsLeft);
-
-                    if (leftHand != null)
-                    {
-                        leftHand.Spriter.sprite = data.hand;
-                        leftHand.gameObject.SetActive(true);
-                    }
-
-                    WeaponManager.Instance.AddRotateWeapon("Shovel");
-                }
+                EquipHand(true);
+                WeaponManager.Instance.AddRotateWeapon("Shovel");
                 break;
             case ItemData.E_ItemType.Range:
+                var getPlayer = PlayerManager.Instance.GetPlayer();
+                EquipHand(false);
+                getPlayer.Scan.IsWeaponActive = true;
+                var bullet = getPlayer.Scan.BulletObj;
+
+                if (bullet != null)
                 {
-                    var Player = PlayerManager.Instance.GetPlayer();
-                    var hand = PlayerManager.Instance.GetPlayer().Hands;
-
-                    var rightHand = hand.FirstOrDefault(hand => !hand.IsLeft);
-
-                    if (rightHand != null)
+                    if (level >= 1)
                     {
-                        rightHand.Spriter.sprite = data.hand;
-                        rightHand.gameObject.SetActive(true);
+                        bulletComponent = bullet.GetComponent<Weapon>();
                     }
 
-                    Player.Scan.IsWeaponActive = true;
+                    if (bulletComponent != null)
+                    {
+                        bulletComponent.data = data;
+                    }
                 }
                 break;
             case ItemData.E_ItemType.Glove:
-                {
-
-                }
                 break;
             case ItemData.E_ItemType.Shoe:
-                {
-
-                }
                 break;
             case ItemData.E_ItemType.Heal:
-                {
-
-                }
                 break;
         }
 
-        level++;
 
-        if (level == data.levelDamage.Length)
+        if (level >= data.levelDamage.Length)
         {
             GetComponent<Button>().interactable = false;
+            return;
+        }
+    }
+
+    private void EquipHand(bool isLeft)
+    {
+        var hand = PlayerManager.Instance.GetPlayer().Hands;
+        var equipHand = hand.FirstOrDefault(hand => hand.IsLeft == isLeft);
+
+        if (equipHand != null)
+        {
+            equipHand.Spriter.sprite = data.hand;
+            equipHand.gameObject.SetActive(true);
         }
     }
 }
