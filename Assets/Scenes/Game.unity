@@ -521,9 +521,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89f20f9fb43f9643b906505fbef17e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
+  weapon: {fileID: 2350024966838474884, guid: e971cfe954e290148a1f56e931b3bf99, type: 3}
   data: {fileID: 11400000, guid: 68a93b64d37db4e498a264558705ad7b, type: 2}
-  level: 0
 --- !u!1 &301796037
 GameObject:
   m_ObjectHideFlags: 0
@@ -5602,7 +5601,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 0}
   data: {fileID: 11400000, guid: 8b473ea20c00d424c987a09705251f6c, type: 2}
-  level: 0
 --- !u!114 &686423384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10684,7 +10682,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 0}
   data: {fileID: 11400000, guid: 6c01393a070cdfa46973130233045518, type: 2}
-  level: 0
 --- !u!114 &1131489870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15898,9 +15895,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89f20f9fb43f9643b906505fbef17e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
+  weapon: {fileID: 1674368148391088338, guid: b8b889c941e685a41bfea63ae6858a4e, type: 3}
   data: {fileID: 11400000, guid: 4d48fd81e5ed1d34da6303f688471052, type: 2}
-  level: 0
 --- !u!114 &1626287923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16501,7 +16497,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 0}
   data: {fileID: 11400000, guid: d9fa30fef481a164a8ed407d5f2f1fd0, type: 2}
-  level: 0
 --- !u!114 &1942602142
 MonoBehaviour:
   m_ObjectHideFlags: 0

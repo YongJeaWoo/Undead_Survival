@@ -3,18 +3,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Item : MonoBehaviour
+public class WeaponUpgradeButton : MonoBehaviour
 {
-    public static Item Instance;
-
     public Weapon weapon;
     public ItemData data;
-    public int level;
 
     private Image icon;
     private TextMeshProUGUI text;
-
-    private Weapon bulletComponent;
 
     private void Awake()
     {
@@ -23,8 +18,6 @@ public class Item : MonoBehaviour
 
     private void InitItem()
     {
-        Instance = this;
-
         icon = GetComponentsInChildren<Image>()[1];
         icon.sprite = data.itemIcon;
 
@@ -34,12 +27,16 @@ public class Item : MonoBehaviour
 
     private void LateUpdate()
     {
-        text.text = $"Lv.{level}";
+        if (weapon != null)
+        {
+            text.text = $"Lv.{weapon.level}";
+            
+        }
     }
 
     public void OnClick()
     {
-        if (level == 0)
+        if (weapon.level == 0)
         {
             var getWeaponManager = WeaponManager.Instance.GetWeapon();
             var getObject = getWeaponManager[data.keyName];
@@ -58,15 +55,10 @@ public class Item : MonoBehaviour
         }
         else
         {
-            if (weapon != null)
-            {
-                weapon.LevelUp(level);
-            }
+            weapon.LevelUp();
         }
 
-        level++;
-
-        var player = PlayerManager.Instance.GetPlayer();
+        //var player = PlayerManager.Instance.GetPlayer();
         //var bulletObject = player.Scan.BulletObj;
 
         //if (bulletObject != null)
@@ -84,23 +76,9 @@ public class Item : MonoBehaviour
                 WeaponManager.Instance.AddRotateWeapon("Shovel");
                 break;
             case ItemData.E_ItemType.Range:
-                var getPlayer = PlayerManager.Instance.GetPlayer();
                 EquipHand(false);
+                var getPlayer = PlayerManager.Instance.GetPlayer();
                 getPlayer.Scan.IsWeaponActive = true;
-                var bullet = getPlayer.Scan.BulletObj;
-
-                if (bullet != null)
-                {
-                    if (level >= 1)
-                    {
-                        bulletComponent = bullet.GetComponent<Weapon>();
-                    }
-
-                    if (bulletComponent != null)
-                    {
-                        bulletComponent.data = data;
-                    }
-                }
                 break;
             case ItemData.E_ItemType.Glove:
                 break;
@@ -110,9 +88,9 @@ public class Item : MonoBehaviour
                 break;
         }
 
-
-        if (level >= data.levelDamage.Length)
+        if (weapon.level >= data.levelDamage.Length)
         {
+            weapon.level = data.levelDamage.Length;
             GetComponent<Button>().interactable = false;
             return;
         }

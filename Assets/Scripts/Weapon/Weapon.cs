@@ -10,6 +10,8 @@ public class Weapon : MonoBehaviour
 
     public float centerDistance = 1.5f;
 
+    public int level;
+
     public ItemData data;
 
     protected Transform playerTransform;
@@ -21,17 +23,11 @@ public class Weapon : MonoBehaviour
     {
         playerTransform = PlayerManager.Instance.GetPlayer().transform;
         weaponManager = WeaponManager.Instance;
-
-        var item = Item.Instance;
-        if (item != null)
-        {
-            damage = data.baseDamage;
-            speed = data.baseSpeed;
-        }
     }
     
     public virtual void Init()
     {
+        level = 1;
         damage = data.baseDamage;
         speed = data.baseSpeed;
     }
@@ -46,9 +42,16 @@ public class Weapon : MonoBehaviour
         centerDistance = distance;
     }
 
-    public void LevelUp(int level)
+    public void LevelUp()
     {
+        level++;
         damage = data.baseDamage + data.levelDamage[level];
         speed = data.baseSpeed + data.levelSpeed[level];
+    }
+
+    public void SetStats(float damage, float speed)
+    {
+        this.damage = damage;
+        this.speed = speed;
     }
 }

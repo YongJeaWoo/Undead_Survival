@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Scanner : MonoBehaviour
 {
-    private string enemy = "Enemy";
+    private string enemyTag = "Enemy";
 
     private float fireDelay = 1.5f;
     private float fireTimer = 0f;
@@ -12,8 +12,6 @@ public class Scanner : MonoBehaviour
 
     private Transform playerTransform;
     private Transform target;
-
-    private WeaponManager weaponManager;
 
     private GameObject bulletObj;
 
@@ -32,8 +30,7 @@ public class Scanner : MonoBehaviour
     private void OnEnable()
     {
         playerTransform = transform;
-        weaponManager = WeaponManager.Instance;
-        enemyLayer = 1 << LayerMask.NameToLayer(enemy);
+        enemyLayer = LayerMask.GetMask(enemyTag);
     }
 
     private void Update()
