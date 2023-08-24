@@ -18,6 +18,8 @@ public class HpBar : MonoBehaviour
 
     private void FollowHpBar()
     {
+        if (PlayerManager.Instance.GetPlayer() == null) return;
+
         var camera = CameraManager.Instance.MainCamera();
         var player = PlayerManager.Instance.GetPlayer();
         var playerPos = player.transform.position;

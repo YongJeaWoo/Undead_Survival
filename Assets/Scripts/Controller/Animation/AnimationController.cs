@@ -13,6 +13,11 @@ public class AnimationController : MonoBehaviour
         get => animator.speed;
         set => animator.speed = value;
     }
+    public Animator Animator
+    {
+        get => animator;
+        set => animator = value;
+    }
 
     private void Awake()
     {

@@ -11,8 +11,8 @@ public class PlayerPrefab
 
 public class PlayerManager : SingletonComponent<PlayerManager>
 {
-    private int health;
-    private int maxHealth = 100;
+    private float health;
+    private float maxHealth = 100;
 
     // 인스펙터에 할당 가능한 플레이어 리스트 목록
     [SerializeField] private List<PlayerPrefab> playerPrefabs;
@@ -23,14 +23,15 @@ public class PlayerManager : SingletonComponent<PlayerManager>
 
     public Player GetPlayer() => player;
 
-    public int GetCurrentHealth() => health;
-    public int GetMaxHealth() => maxHealth;
+    public float GetCurrentHealth() => health;
+    public float GetMaxHealth() => maxHealth;
 
     public void InitPlayer(string name)
     {
         player = Instantiate(playerPrefabDic[name]);
         CameraManager.Instance.InitCamera();
         health = maxHealth;
+        SetHands();
     }
 
     private void SetPlayers()
@@ -41,6 +42,25 @@ public class PlayerManager : SingletonComponent<PlayerManager>
         {
             playerPrefabDic.Add(playerPrefab.key, playerPrefab.player);
         }
+    }
+
+    private void SetHands()
+    {
+        // 생성된 플레이어의 Hand 클래스의 인스턴스에 대해 InitAwake 메서드 호출
+        foreach (var hand in player.Hands)
+        {
+            hand.InitAwake();
+        }
+    }
+
+    public void IncreaseHealth(float amount)
+    {
+        health += amount;
+    }
+
+    public void DecreaseHealth(float amount)
+    {
+        health -= amount;
     }
 
     #region Singleton

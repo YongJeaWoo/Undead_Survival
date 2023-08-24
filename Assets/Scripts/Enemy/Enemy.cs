@@ -40,21 +40,7 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (knockbackTimer <= 0)
-        {
-            // 상대 위치와 나의 위치 거리
-            Vector2 dirVec = targetRigid.position - rigid.position;
-            Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
-            // 플레이어 위치로 움직이기
-            animationController.EnemyAnimation(E_EnemyState.Run);
-            rigid.MovePosition(rigid.position + nextVec);
-            // 물리적 충돌 없애기
-            rigid.velocity = Vector2.zero;
-        }
-        else
-        {
-            knockbackTimer -= Time.fixedDeltaTime;
-        }
+        Tracking();
     }
 
     private void LateUpdate()
@@ -76,6 +62,30 @@ public class Enemy : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animationController = GetComponent<AnimationController>();
+    }
+
+    private void Tracking()
+    {
+        var playerHP = PlayerManager.Instance.GetCurrentHealth();
+
+        if (knockbackTimer <= 0)
+        {
+            if (playerHP > 0)
+            {
+                // 상대 위치와 나의 위치 거리
+                Vector2 dirVec = targetRigid.position - rigid.position;
+                Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
+                // 플레이어 위치로 움직이기
+                animationController.EnemyAnimation(E_EnemyState.Run);
+                rigid.MovePosition(rigid.position + nextVec);
+                // 물리적 충돌 없애기
+                rigid.velocity = Vector2.zero;
+            }
+        }
+        else
+        {
+            knockbackTimer -= Time.fixedDeltaTime;
+        }
     }
 
     private void Target()

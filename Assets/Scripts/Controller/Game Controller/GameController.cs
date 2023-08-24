@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    WaitForSeconds waitSeconds = new WaitForSeconds(2f);
-
     private void OnEnable()
     {
         LevelManager.Instance.Gamestate = E_GameState.Ready;
@@ -11,6 +9,9 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        LevelManager.Instance.SpawnEnemy();
+        if (LevelManager.Instance.Gamestate == E_GameState.Start)
+        {
+            LevelManager.Instance.SpawnEnemy();
+        }
     }
 }

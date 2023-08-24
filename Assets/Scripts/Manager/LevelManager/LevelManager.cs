@@ -20,6 +20,8 @@ public class LevelManager : SingletonComponent<LevelManager>
     private float spawnTimer;
     private E_GameState gameState = E_GameState.None;
 
+    [SerializeField] private GameObject selectPlayer;
+
     public E_GameState Gamestate
     {
         get => gameState;
@@ -37,6 +39,11 @@ public class LevelManager : SingletonComponent<LevelManager>
         }
     }
 
+    public void ButtonClickToStart()
+    {
+        Gamestate = E_GameState.Start;
+    }
+
     // 상태 변화
     private void ChangeGameState(E_GameState newState)
     {
@@ -46,13 +53,7 @@ public class LevelManager : SingletonComponent<LevelManager>
         {
             case E_GameState.Ready:
                 {
-                    PlayerManager.Instance.InitPlayer("Man Player");
-
-                    // 생성된 플레이어의 Hand 클래스의 인스턴스에 대해 InitAwake 메서드 호출
-                    foreach (var hand in PlayerManager.Instance.GetPlayer().Hands)
-                    {
-                        hand.InitAwake();
-                    }
+                    selectPlayer.SetActive(true);
                 }
                 break;
             case E_GameState.Start:

@@ -63,6 +63,12 @@ public class Player : MonoBehaviour
     private void LateUpdate()
     {
         InputAnimation();
+        Dead();
+    }
+
+    private void OnEnable()
+    {
+        
     }
 
     private void GetComponents()
@@ -84,6 +90,9 @@ public class Player : MonoBehaviour
 
     private void FixedInputKeys()
     {
+        var playerHP = PlayerManager.Instance.GetCurrentHealth();
+
+        if (playerHP <= 0) return;
         // 움직임 균일 이동
         Vector2 moveVec = inputVec.normalized * moveSpeed * Time.fixedDeltaTime;
 
@@ -92,6 +101,10 @@ public class Player : MonoBehaviour
 
     private void InputAnimation()
     {
+        var playerHP = PlayerManager.Instance.GetCurrentHealth();
+
+        if (playerHP <= 0) return;
+
         if (inputVec.x != 0 || inputVec.y != 0)
         {
             aniController.PlayerAnimation(E_PlayerState.Run);
@@ -108,4 +121,28 @@ public class Player : MonoBehaviour
     }
 
     #endregion
+
+    private void Dead()
+    {
+        var playerHP = PlayerManager.Instance.GetCurrentHealth();
+
+        if (playerHP <= 0)
+        {
+            playerHP = 0;
+
+            for (int index = 2; index < transform.childCount; index++)
+            {
+                transform.GetChild(index).gameObject.SetActive(false);
+            }
+
+            aniController.PlayerAnimation(E_PlayerState.Dead);
+        }
+
+        Debug.Log(playerHP);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        PlayerManager.Instance.DecreaseHealth(Time.deltaTime * 10);
+    }
 }

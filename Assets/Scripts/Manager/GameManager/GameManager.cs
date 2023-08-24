@@ -12,6 +12,8 @@ public class GameManager : SingletonComponent<GameManager>
 
     private void Update()
     {
+        if (LevelManager.Instance.Gamestate != E_GameState.Start) return;
+
         currentTime += Time.deltaTime;
     }
 
