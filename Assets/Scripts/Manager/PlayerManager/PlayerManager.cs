@@ -2,6 +2,12 @@ using SingletonComponent.Component;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum E_PlayerType
+{
+    ManPlayer,
+    WomanPlayer,
+}
+
 [System.Serializable]
 public class PlayerPrefab
 {
@@ -26,10 +32,22 @@ public class PlayerManager : SingletonComponent<PlayerManager>
     public float GetCurrentHealth() => health;
     public float GetMaxHealth() => maxHealth;
 
-    public void InitPlayer(string name)
+    public void InitPlayer(E_PlayerType playerType)
     {
-        player = Instantiate(playerPrefabDic[name]);
-        CameraManager.Instance.InitCamera();
+        switch (playerType)
+        {
+            case E_PlayerType.ManPlayer:
+                {
+                    player = Instantiate(playerPrefabDic["Man Player"]);
+                }
+                break;
+            case E_PlayerType.WomanPlayer:
+                {
+                    player = Instantiate(playerPrefabDic["Woman Player"]);
+                }
+                break;
+        }
+
         health = maxHealth;
         SetHands();
     }

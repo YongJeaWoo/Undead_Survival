@@ -6,6 +6,7 @@ public enum E_GameState
     // 준비단계, 게임 시작, 게임 일시 정지, 게임 재개, 레벨 변화, 게임 오버, 게임 클리어
     None,
     Ready,
+    Explain,
     Start,
     Pause,
     Resume,
@@ -19,8 +20,6 @@ public class LevelManager : SingletonComponent<LevelManager>
 {
     private float spawnTimer;
     private E_GameState gameState = E_GameState.None;
-
-    [SerializeField] private GameObject selectPlayer;
 
     public E_GameState Gamestate
     {
@@ -39,6 +38,11 @@ public class LevelManager : SingletonComponent<LevelManager>
         }
     }
 
+    public void ButtonClickToExplain()
+    {
+        Gamestate = E_GameState.Explain;
+    }
+
     public void ButtonClickToStart()
     {
         Gamestate = E_GameState.Start;
@@ -53,12 +57,18 @@ public class LevelManager : SingletonComponent<LevelManager>
         {
             case E_GameState.Ready:
                 {
-                    selectPlayer.SetActive(true);
+                    DialogueManager.Instance.OnSelectPlayerBox(true);
+                }
+                break;
+            case E_GameState.Explain:
+                {
+                    DialogueManager.Instance.OnSelectPlayerBox(false);
+                    DialogueManager.Instance.SettingUI(true);
                 }
                 break;
             case E_GameState.Start:
                 {
-
+                    CameraManager.Instance.InitCamera();
                 }
                 break;
             case E_GameState.Pause:
