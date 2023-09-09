@@ -17,7 +17,7 @@ public enum E_GameState
 
 
 public class LevelManager : SingletonComponent<LevelManager>
-{
+{  
     private float spawnTimer;
     private E_GameState gameState = E_GameState.None;
 
@@ -86,9 +86,21 @@ public class LevelManager : SingletonComponent<LevelManager>
             case E_GameState.GameOver:
                 break;
             case E_GameState.GameClear:
+                {
+                    GameClear();
+                }
                 break;
         }
     }
+
+    #region Methods
+
+    private void GameClear()
+    {
+
+    }
+
+    #endregion
 
     #region Singleton
 

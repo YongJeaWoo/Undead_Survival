@@ -96,7 +96,13 @@ public class DialogueManager : SingletonComponent<DialogueManager>
         replaceText = replaceText.Replace("'", ",");
 
         textName.text = dialogues[idCount].name;
-        textDialogue.text = replaceText;
+        textDialogue.text = ""; ;
+
+        foreach (char letter in replaceText.ToCharArray())
+        {
+            textDialogue.text += letter;
+            yield return new WaitForSeconds(0.1f);
+        }
 
         isNext = true;
         yield return null;

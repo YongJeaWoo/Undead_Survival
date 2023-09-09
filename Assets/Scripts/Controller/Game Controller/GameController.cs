@@ -9,9 +9,25 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        StartSpawnEnemies();
+        CheckCurrentTimes();
+    }
+
+    private void StartSpawnEnemies()
+    {
         if (LevelManager.Instance.Gamestate == E_GameState.Start)
         {
             LevelManager.Instance.SpawnEnemy();
+        }
+    }
+
+    private void CheckCurrentTimes()
+    {
+        var gameManager = GameManager.Instance;
+
+        if (gameManager.GetCurrentTime() <= 0)
+        {
+            LevelManager.Instance.Gamestate = E_GameState.GameClear;
         }
     }
 
