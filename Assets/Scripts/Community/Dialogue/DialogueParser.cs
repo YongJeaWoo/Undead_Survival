@@ -26,7 +26,8 @@ public class DialogueParser : MonoBehaviour
             {
                 prevCharacterName = characterName;
             }
-            string dialogueText = fields[3];
+
+            string dialogueText = fields[3].Replace("|", "\n");
 
             if (!dialogues.ContainsKey(storyId))
             {
