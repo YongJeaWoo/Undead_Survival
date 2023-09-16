@@ -4,16 +4,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class DialogueManager : SingletonComponent<DialogueManager>
 {
+    private const string PAUSEICON = "Sprites/Icon";
+
     [SerializeField] private GameObject dialogueArea;
     [SerializeField] private GameObject selectPlayerBox;
     [SerializeField] private GameObject hud;
+    [SerializeField] private Button pauseButton;
 
     [SerializeField] private TextMeshProUGUI textName;
     [SerializeField] private TextMeshProUGUI textDialogue;
-
-    [SerializeField] private Button[] button;
 
     private Dialogue[] dialogues;
 
@@ -37,6 +39,20 @@ public class DialogueManager : SingletonComponent<DialogueManager>
         InputKeys();
     }
 
+    public void ChangeImage(string iconName)
+    {
+        var newSprite = Resources.Load<Sprite>($"{PAUSEICON}{iconName}");
+
+        if (newSprite != null)
+        {
+            pauseButton.GetComponent<Image>().sprite = newSprite;
+        }
+        else
+        {
+            Debug.LogError($"Failed to load sprite.");
+        }
+    }
+
     public void OnSelectPlayerBox(bool select)
     {
         selectPlayerBox.SetActive(select);
@@ -56,13 +72,17 @@ public class DialogueManager : SingletonComponent<DialogueManager>
     {
         if (isDialogue)
         {
-            if (isNext)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (!isNext)
+                {
+                    isNext = true;
+                }
+                else
                 {
                     isNext = false;
                     textDialogue.text = "";
-                    
+
                     if (++contextCount < dialogues[idCount].contexts.Length)
                     {
                         StartCoroutine(nameof(TypeWriter));
@@ -100,12 +120,19 @@ public class DialogueManager : SingletonComponent<DialogueManager>
 
         foreach (char letter in replaceText.ToCharArray())
         {
-            textDialogue.text += letter;
-            yield return new WaitForSeconds(0.1f);
+            if (isNext && isDialogue)
+            {
+                textDialogue.text = replaceText;
+                break;
+            }
+            else
+            {
+                textDialogue.text += letter;
+                yield return new WaitForSeconds(0.1f);
+            }
         }
 
         isNext = true;
-        yield return null;
     }
 
     public void SettingUI(bool flag)

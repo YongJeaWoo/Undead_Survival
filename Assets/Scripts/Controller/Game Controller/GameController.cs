@@ -10,7 +10,8 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         StartSpawnEnemies();
-        CheckCurrentTimes();
+        CheckGameEnd();
+        InputPause();
     }
 
     private void StartSpawnEnemies()
@@ -21,13 +22,27 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void CheckCurrentTimes()
+    private void InputPause()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PanelManager.Instance.TogglePausePanel();
+        }
+    }
+
+    private void CheckGameEnd()
     {
         var gameManager = GameManager.Instance;
+        var playerManager = PlayerManager.Instance;
 
         if (gameManager.GetCurrentTime() <= 0)
         {
             LevelManager.Instance.Gamestate = E_GameState.GameClear;
+        }
+
+        if (playerManager.GetCurrentHealth() <= 0)
+        {
+            LevelManager.Instance.Gamestate = E_GameState.GameOver;
         }
     }
 

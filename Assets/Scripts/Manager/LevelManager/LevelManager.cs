@@ -57,13 +57,14 @@ public class LevelManager : SingletonComponent<LevelManager>
         {
             case E_GameState.Ready:
                 {
-                    DialogueManager.Instance.OnSelectPlayerBox(true);
+                    UIManager.Instance.OnSelectPlayerBox(true);
                 }
                 break;
             case E_GameState.Explain:
                 {
-                    DialogueManager.Instance.OnSelectPlayerBox(false);
-                    DialogueManager.Instance.SettingUI(true);
+                    UIManager.Instance.SettingUI(true);
+                    UIManager.Instance.OnSelectPlayerBox(false);
+                    DataBaseManager.Instance.LoadDialogueData("prologue");
                 }
                 break;
             case E_GameState.Start:
@@ -84,6 +85,9 @@ public class LevelManager : SingletonComponent<LevelManager>
             case E_GameState.Changing:
                 break;
             case E_GameState.GameOver:
+                {
+
+                }
                 break;
             case E_GameState.GameClear:
                 {

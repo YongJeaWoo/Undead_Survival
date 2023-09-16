@@ -1,22 +1,13 @@
 using SingletonComponent.Component;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class DataBaseManager : SingletonComponent<DataBaseManager>
 {
-    [SerializeField] private string csvFileName;
-
     private Dictionary<int, List<Dialogue>> dialogueDic = new Dictionary<int, List<Dialogue>>();
 
     public static bool isFinish = false;
 
-    public string CSVFileName
-    {
-        get => csvFileName;
-        set => csvFileName = value;
-    }
-
-    private void InitAwake()
+    public void LoadDialogueData(string csvFileName)
     {
         DialogueParser theParser = GetComponent<DialogueParser>();
         Dictionary<int, List<Dialogue>> dialogues = theParser.Parse(csvFileName);
@@ -34,8 +25,6 @@ public class DataBaseManager : SingletonComponent<DataBaseManager>
                 dialogueDic[storyId].Add(dialogue);
             }
         }
-
-        isFinish = true;
     }
 
     public Dictionary<int, List<Dialogue>> GetDialogue() => dialogueDic;
@@ -44,7 +33,7 @@ public class DataBaseManager : SingletonComponent<DataBaseManager>
 
     protected override void AwakeInstance()
     {
-        InitAwake();
+
     }
 
     protected override bool InitInstance()
