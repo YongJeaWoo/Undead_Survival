@@ -24,7 +24,9 @@ public class GameController : MonoBehaviour
 
     private void InputPause()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && 
+            (LevelManager.Instance.Gamestate == E_GameState.Start || 
+            LevelManager.Instance.Gamestate == E_GameState.Pause))
         {
             PanelManager.Instance.TogglePausePanel();
         }

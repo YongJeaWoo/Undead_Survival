@@ -55,15 +55,6 @@ public class GameManager : SingletonComponent<GameManager>
         exp -= maxExp;
     }
 
-    private void GameOver()
-    {
-        if (currentTime < 0)
-        {
-            currentTime = 0;
-
-        }
-    }
-
     #region Singleton
 
     protected override void AwakeInstance()

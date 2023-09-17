@@ -101,6 +101,8 @@ public class Player : MonoBehaviour
 
     private void InputAnimation()
     {
+        if (Time.timeScale == 0f) return;
+
         var playerHP = PlayerManager.Instance.GetCurrentHealth();
 
         if (playerHP <= 0) return;

@@ -7,6 +7,7 @@ public enum E_GameState
     None,
     Ready,
     Explain,
+    Init,
     Start,
     Pause,
     Resume,
@@ -68,9 +69,15 @@ public class LevelManager : SingletonComponent<LevelManager>
                     DataBaseManager.Instance.LoadDialogueData("prologue");
                 }
                 break;
-            case E_GameState.Start:
+            case E_GameState.Init:
                 {
                     CameraManager.Instance.InitCamera();
+                    Gamestate = E_GameState.Start;
+                }
+                break;
+            case E_GameState.Start:
+                {
+
                 }
                 break;
             case E_GameState.Pause:
@@ -81,6 +88,7 @@ public class LevelManager : SingletonComponent<LevelManager>
             case E_GameState.Resume:
                 {
                     Time.timeScale = 1f;
+                    Gamestate = E_GameState.Start;
                 }
                 break;
             case E_GameState.Changing:

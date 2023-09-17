@@ -4,11 +4,12 @@ using UnityEngine.UI;
 
 public class UIManager : SingletonComponent<UIManager>
 {
-    private const string PAUSEICON = "Sprites/Icon";
+    private const string PAUSEICON = "Sprites/Icon/";
 
     [SerializeField] private Button pauseButton;
     [SerializeField] private GameObject selectPlayerBox;
-    [SerializeField] private GameObject hud;
+    [SerializeField] private GameObject infoHUD;
+    [SerializeField] private GameObject otherHUD;
 
     #region Singleton
 
@@ -51,6 +52,7 @@ public class UIManager : SingletonComponent<UIManager>
     public void SettingUI(bool flag)
     {
         DialogueManager.Instance.DialogueCanvas.SetActive(flag);
-        hud.SetActive(!flag);
+        otherHUD.SetActive(!flag);
+        infoHUD.SetActive(!flag);
     }
 }

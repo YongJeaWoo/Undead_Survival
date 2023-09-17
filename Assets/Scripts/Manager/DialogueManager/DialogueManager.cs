@@ -69,7 +69,7 @@ public class DialogueManager : SingletonComponent<DialogueManager>
                         else
                         {
                             isDialogue = false;
-                            LevelManager.Instance.Gamestate = E_GameState.Start;
+                            LevelManager.Instance.Gamestate = E_GameState.Init;
                             UIManager.Instance.SettingUI(false);
                         }
                     }
@@ -86,7 +86,7 @@ public class DialogueManager : SingletonComponent<DialogueManager>
         replaceText = replaceText.Replace("'", ",");
 
         textName.text = dialogues[idCount].name;
-        textDialogue.text = ""; ;
+        textDialogue.text = "";
 
         foreach (char letter in replaceText.ToCharArray())
         {
