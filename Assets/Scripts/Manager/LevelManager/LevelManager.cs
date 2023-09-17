@@ -57,6 +57,7 @@ public class LevelManager : SingletonComponent<LevelManager>
         {
             case E_GameState.Ready:
                 {
+                    DialogueManager.Instance.IEvent = FindObjectOfType<InteractionEvent>();
                     UIManager.Instance.OnSelectPlayerBox(true);
                 }
                 break;

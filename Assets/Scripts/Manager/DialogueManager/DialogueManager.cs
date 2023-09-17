@@ -2,18 +2,11 @@ using SingletonComponent.Component;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class DialogueManager : SingletonComponent<DialogueManager>
 {
-    private const string PAUSEICON = "Sprites/Icon";
-
-    [SerializeField] private GameObject dialogueArea;
-    [SerializeField] private GameObject selectPlayerBox;
-    [SerializeField] private GameObject hud;
-    [SerializeField] private Button pauseButton;
-
+    [SerializeField] private GameObject dialogueCanvas;
     [SerializeField] private TextMeshProUGUI textName;
     [SerializeField] private TextMeshProUGUI textDialogue;
 
@@ -27,35 +20,12 @@ public class DialogueManager : SingletonComponent<DialogueManager>
 
     private InteractionEvent iEvent;
 
-    public InteractionEvent IEvent { get => iEvent; }
-
-    private void OnEnable()
-    {
-        iEvent = FindObjectOfType<InteractionEvent>();
-    }
+    public GameObject DialogueCanvas { get => dialogueCanvas; }
+    public InteractionEvent IEvent { get => iEvent; set => iEvent = value;  }
 
     private void Update()
     {
         InputKeys();
-    }
-
-    public void ChangeImage(string iconName)
-    {
-        var newSprite = Resources.Load<Sprite>($"{PAUSEICON}{iconName}");
-
-        if (newSprite != null)
-        {
-            pauseButton.GetComponent<Image>().sprite = newSprite;
-        }
-        else
-        {
-            Debug.LogError($"Failed to load sprite.");
-        }
-    }
-
-    public void OnSelectPlayerBox(bool select)
-    {
-        selectPlayerBox.SetActive(select);
     }
 
     public void ShowDialogue(Dialogue[] dialogues)
@@ -100,7 +70,7 @@ public class DialogueManager : SingletonComponent<DialogueManager>
                         {
                             isDialogue = false;
                             LevelManager.Instance.Gamestate = E_GameState.Start;
-                            SettingUI(false);
+                            UIManager.Instance.SettingUI(false);
                         }
                     }
                 }
@@ -110,7 +80,7 @@ public class DialogueManager : SingletonComponent<DialogueManager>
 
     private IEnumerator TypeWriter()
     {
-        SettingUI(true);
+        UIManager.Instance.SettingUI(true);
 
         string replaceText = dialogues[idCount].contexts[contextCount];
         replaceText = replaceText.Replace("'", ",");
@@ -133,12 +103,6 @@ public class DialogueManager : SingletonComponent<DialogueManager>
         }
 
         isNext = true;
-    }
-
-    public void SettingUI(bool flag)
-    {
-        dialogueArea.SetActive(flag);
-        hud.SetActive(!flag);
     }
 
     #region Singleton
