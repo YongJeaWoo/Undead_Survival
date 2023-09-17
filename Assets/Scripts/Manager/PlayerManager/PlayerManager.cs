@@ -34,6 +34,7 @@ public class PlayerManager : SingletonComponent<PlayerManager>
 
     public void InitPlayer(E_PlayerType playerType)
     {
+        health = maxHealth;
         switch (playerType)
         {
             case E_PlayerType.ManPlayer:
@@ -48,7 +49,6 @@ public class PlayerManager : SingletonComponent<PlayerManager>
                 break;
         }
 
-        health = maxHealth;
         SetHands();
     }
 
