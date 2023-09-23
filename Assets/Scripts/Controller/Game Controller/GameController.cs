@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
             (LevelManager.Instance.Gamestate == E_GameState.Start || 
             LevelManager.Instance.Gamestate == E_GameState.Pause))
         {
-            PanelManager.Instance.TogglePausePanel();
+            PanelManager.Instance.TogglePanel<PausePanel>();
         }
     }
 
