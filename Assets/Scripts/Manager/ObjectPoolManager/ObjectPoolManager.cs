@@ -24,6 +24,11 @@ public class ObjectPoolManager : SingletonComponent<ObjectPoolManager>
         pool.Initialize(_obj);
     }
 
+    public List<GameObject> GetWeapons()
+    {
+        return poolObjects.FindAll(obj => obj.GetComponent<Weapon>() != null);
+    }
+
     public ObjectPool GetPool(string _poolName)
     {
         return objectPoolDics.TryGetValue(_poolName, out var result) ? result : null;
@@ -67,7 +72,20 @@ public class ObjectPoolManager : SingletonComponent<ObjectPoolManager>
             return null;
         }
 
-        return pool.Create(_parent);
+        var weapon = pool.Create(_parent);
+        var weaponComponent = weapon.GetComponent<Weapon>();
+
+        if (weaponComponent != null)
+        {
+            var weaponData = WeaponManager.Instance.GetWeaponData(_poolName);
+
+            if (weaponData != null)
+            {
+                weaponComponent.Init(weaponData);
+            }
+        }
+
+        return weapon;
     }
     
     public void Return(GameObject _obj, Transform _parent = null)

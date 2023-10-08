@@ -14,17 +14,17 @@ public class Shovel : Weapon
 
     private void Rotate()
     {
-        accumulateAngle += speed * Time.deltaTime;
-        var angle = -(defaultAngle + speed * Time.time);
+        accumulateAngle += Speed * Time.deltaTime;
+        var angle = -(defaultAngle + Speed * Time.time);
         var facingAngle = angle + 270;
         var offset = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad)) * centerDistance;
-        transform.position = playerTransform.position + offset;
+        transform.position = playerManager.GetPlayer().transform.position + offset;
         transform.rotation = Quaternion.Euler(0, 0, facingAngle);
     }
 
-    public override void Init()
+    public override void Init(WeaponData data)
     {
-        base.Init();
+        base.Init(data);
         centerDistance = 1.5f;
     }
 }

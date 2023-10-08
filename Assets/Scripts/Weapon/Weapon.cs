@@ -2,34 +2,32 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public float damage;
-    public float speed;
+    protected WeaponManager weaponManager;
+    protected PlayerManager playerManager;
+    protected WeaponData prefabData;
+
+    public float Damage => prefabData.Damage;
+    public float Speed => prefabData.Speed;
 
     public float defaultAngle = 0f;
     public float accumulateAngle = 0f;
-
     public float centerDistance = 1.5f;
-
-    public int level;
-
-    public ItemData data;
-
-    protected Transform playerTransform;
-    protected WeaponManager weaponManager;
 
     public float CenterDistance() => centerDistance;
 
     public virtual void OnEnable()
     {
-        playerTransform = PlayerManager.Instance.GetPlayer().transform;
         weaponManager = WeaponManager.Instance;
+        playerManager = PlayerManager.Instance;
     }
     
-    public virtual void Init()
+    public virtual void Init(WeaponData data)
     {
-        level = 1;
-        damage = data.baseDamage;
-        speed = data.baseSpeed;
+        prefabData = data;
+
+        name = $"Weapon {prefabData.itemData.name}";
+        transform.parent = playerManager.GetPlayer().transform;
+        transform.localPosition = Vector3.zero;
     }
 
     public virtual void SetDefaultAngle(float _angle)
@@ -40,18 +38,5 @@ public class Weapon : MonoBehaviour
     public virtual void SetCenterDistance(float distance)
     {
         centerDistance = distance;
-    }
-
-    public void LevelUp()
-    {
-        level++;
-        damage = data.baseDamage + data.levelDamage[level];
-        speed = data.baseSpeed + data.levelSpeed[level];
-    }
-
-    public void SetStats(float damage, float speed)
-    {
-        this.damage = damage;
-        this.speed = speed;
     }
 }

@@ -273,9 +273,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea3465d669bb65b4297a5f6b9e598004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorControllers:
-  - {fileID: 9100000, guid: 28e42a0810814f54d9b6654b094a5a15, type: 2}
-  - {fileID: 22100000, guid: e63f7831ff979a0468d80f7adebc0d4c, type: 2}
   hands: []
 --- !u!114 &8435825295637862460
 MonoBehaviour:

@@ -5,21 +5,18 @@ using UnityEngine.UI;
 
 public class WeaponUpgradeButton : MonoBehaviour
 {
-    public Weapon weapon;
-    public ItemData data;
+    private WeaponData weaponData;
 
     private Image icon;
     private TextMeshProUGUI text;
 
-    private void Awake()
-    {
-        InitItem();
-    }
+    private ItemData Data => weaponData?.itemData ?? new ItemData();
 
-    private void InitItem()
+    public void InitItem(WeaponData data)
     {
+        weaponData = data;
         icon = GetComponentsInChildren<Image>()[1];
-        icon.sprite = data.itemIcon;
+        icon.sprite = Data.itemIcon;
 
         TextMeshProUGUI[] texts = GetComponentsInChildren<TextMeshProUGUI>();
         text = texts[0];
@@ -27,55 +24,22 @@ public class WeaponUpgradeButton : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (weapon != null)
+        if (weaponData.Count != 0)
         {
-            text.text = $"Lv.{weapon.level}";
-            
+            text.text = $"Lv.{weaponData.CurrentLevel}";
         }
     }
 
     public void OnClick()
     {
-        if (weapon.level == 0)
-        {
-            var getWeaponManager = WeaponManager.Instance.GetWeapon();
-            var getObject = getWeaponManager[data.keyName];
-            var weaponObject = data.itemObject;
-
-            if (weaponObject != null)
-            {
-                weapon = weaponObject.GetComponent<Weapon>();
-
-                if (weapon != null)
-                {
-                    weapon.data = data;
-                    weapon.Init();
-                }
-            }
-        }
-        else
-        {
-            weapon.LevelUp();
-        }
-
-        //var player = PlayerManager.Instance.GetPlayer();
-        //var bulletObject = player.Scan.BulletObj;
-
-        //if (bulletObject != null)
-        //{
-        //    var getBullet = bulletObject.GetComponent<Bullet>();
-
-        //    getBullet.damage = data.baseDamage + data.levelDamage[level];
-        //    getBullet.speed = data.baseSpeed + data.levelSpeed[level];
-        //}
-
-        switch (data.itemType)
+        switch (Data.itemType)
         {
             case ItemData.E_ItemType.Melee:
+                HandleWeaponUpgrade();
                 EquipHand(true);
-                WeaponManager.Instance.AddRotateWeapon("Shovel");
                 break;
             case ItemData.E_ItemType.Range:
+                HandleWeaponUpgrade();
                 EquipHand(false);
                 var getPlayer = PlayerManager.Instance.GetPlayer();
                 getPlayer.Scan.IsWeaponActive = true;
@@ -88,11 +52,23 @@ public class WeaponUpgradeButton : MonoBehaviour
                 break;
         }
 
-        if (weapon.level >= data.levelDamage.Length)
+        if (weaponData.CurrentLevel >= Data.levelDamage.Length)
         {
-            weapon.level = data.levelDamage.Length;
+            weaponData.SetLevel(Data.levelDamage.Length);
             GetComponent<Button>().interactable = false;
             return;
+        }
+    }
+
+    private void HandleWeaponUpgrade()
+    {
+        if (weaponData.Count == 0)
+        {
+            weaponData.CreateWeapon();
+        }
+        else
+        {
+            weaponData.AddLevel(1);
         }
     }
 
@@ -103,7 +79,7 @@ public class WeaponUpgradeButton : MonoBehaviour
 
         if (equipHand != null)
         {
-            equipHand.Spriter.sprite = data.hand;
+            equipHand.Spriter.sprite = Data.hand;
             equipHand.gameObject.SetActive(true);
         }
     }

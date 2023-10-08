@@ -16,7 +16,6 @@ public enum E_GameState
     GameClear,
 }
 
-
 public class LevelManager : SingletonComponent<LevelManager>
 {  
     private float spawnTimer;
@@ -60,6 +59,7 @@ public class LevelManager : SingletonComponent<LevelManager>
                 {
                     DialogueManager.Instance.IEvent = FindObjectOfType<InteractionEvent>();
                     UIManager.Instance.OnSelectPlayerBox(true);
+                    AudioManager.Instance.SoundInit();
                 }
                 break;
             case E_GameState.Explain:
@@ -77,7 +77,7 @@ public class LevelManager : SingletonComponent<LevelManager>
                 break;
             case E_GameState.Start:
                 {
-
+                    AudioManager.Instance.PlayAudio("BGM");
                 }
                 break;
             case E_GameState.Pause:

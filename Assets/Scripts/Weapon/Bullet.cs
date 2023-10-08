@@ -31,12 +31,12 @@ public class Bullet : Weapon
 
     private void MoveTowardsTarget()
     {
-        transform.position += targetPosition * speed * Time.deltaTime;
+        transform.position += targetPosition * Speed * Time.deltaTime;
     }
 
-    public override void Init()
+    public override void Init(WeaponData data)
     {
-        base.Init();
+        base.Init(data);
         centerDistance = 1;
     }
 

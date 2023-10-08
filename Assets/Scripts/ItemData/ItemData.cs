@@ -27,9 +27,7 @@ public class ItemData : ScriptableObject
     [Header("@ Level Weapon")]
     public float baseDamage;
     public float baseSpeed;
-    public int baseCount;
 
     public float[] levelDamage;
     public float[] levelSpeed;
-    public int[] levelCount;
 }

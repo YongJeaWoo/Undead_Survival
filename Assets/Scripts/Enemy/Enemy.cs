@@ -138,7 +138,7 @@ public class Enemy : MonoBehaviour
 
     public void OnAttacked(Weapon weapon)
     {
-        float damage = weapon.damage;
+        float damage = weapon.Damage;
 
         health -= damage;
         Knockback();
